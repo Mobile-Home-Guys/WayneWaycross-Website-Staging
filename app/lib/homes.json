@@ -426,7 +426,16 @@
    "/homes/dash/10.jpg",
    "/homes/dash/11.jpg",
    "/homes/dash/12.jpg",
-   "/homes/dash/13.jpg"
+   "/homes/dash/13.jpg",
+   "/homes/dash/14.jpg",
+   "/homes/dash/15.jpg",
+   "/homes/dash/16.jpg",
+   "/homes/dash/17.jpg",
+   "/homes/dash/18.jpg",
+   "/homes/dash/19.jpg",
+   "/homes/dash/20.jpg",
+   "/homes/dash/21.jpg",
+   "/homes/dash/22.jpg"
   ],
   "tour": "VftbR2WRjAz"
  },
@@ -492,6 +501,37 @@
    "/homes/dogwood/14.jpg"
   ],
   "tour": "wmAJpoXQ9rW"
+ },
+ {
+  "slug": "dolly",
+  "name": "Dolly",
+  "beds": 3,
+  "baths": 2.0,
+  "sqft": 1780,
+  "section": "Double wide",
+  "series": [
+   "XT Series"
+  ],
+  "images": [
+   "/homes/dolly/0.jpg",
+   "/homes/dolly/1.jpg",
+   "/homes/dolly/2.jpg",
+   "/homes/dolly/3.jpg",
+   "/homes/dolly/4.jpg",
+   "/homes/dolly/5.jpg",
+   "/homes/dolly/6.jpg",
+   "/homes/dolly/7.jpg",
+   "/homes/dolly/8.jpg",
+   "/homes/dolly/9.jpg",
+   "/homes/dolly/10.jpg",
+   "/homes/dolly/11.jpg",
+   "/homes/dolly/12.jpg",
+   "/homes/dolly/13.jpg",
+   "/homes/dolly/14.jpg",
+   "/homes/dolly/15.jpg",
+   "/homes/dolly/16.jpg"
+  ],
+  "tour": "pUUwjhSdSuV"
  },
  {
   "slug": "driftwood",
@@ -886,6 +926,39 @@
    "/homes/high-country/30.jpg"
   ],
   "tour": "ESKPJBWEMTU"
+ },
+ {
+  "slug": "highlander",
+  "name": "Highlander",
+  "beds": 4,
+  "baths": 3.0,
+  "sqft": 2254,
+  "section": "Double wide",
+  "series": [
+   "XT Series"
+  ],
+  "images": [
+   "/homes/highlander/0.jpg",
+   "/homes/highlander/1.jpg",
+   "/homes/highlander/2.jpg",
+   "/homes/highlander/3.jpg",
+   "/homes/highlander/4.jpg",
+   "/homes/highlander/5.jpg",
+   "/homes/highlander/6.jpg",
+   "/homes/highlander/7.jpg",
+   "/homes/highlander/8.jpg",
+   "/homes/highlander/9.jpg",
+   "/homes/highlander/10.jpg",
+   "/homes/highlander/11.jpg",
+   "/homes/highlander/12.jpg",
+   "/homes/highlander/13.jpg",
+   "/homes/highlander/14.jpg",
+   "/homes/highlander/15.jpg",
+   "/homes/highlander/16.jpg",
+   "/homes/highlander/17.jpg",
+   "/homes/highlander/18.jpg"
+  ],
+  "tour": "wTB8q5Jd8o6"
  },
  {
   "slug": "hilton",
@@ -1636,6 +1709,33 @@
    "/homes/telford/10.jpg"
   ],
   "tour": "ng7wCdA8ySf"
+ },
+ {
+  "slug": "titan",
+  "name": "Titan",
+  "beds": 2,
+  "baths": 2.0,
+  "sqft": 890,
+  "section": "Single wide",
+  "series": [
+   "Extreme Series"
+  ],
+  "images": [
+   "/homes/titan/0.jpg",
+   "/homes/titan/1.jpg",
+   "/homes/titan/2.jpg",
+   "/homes/titan/3.jpg",
+   "/homes/titan/4.jpg",
+   "/homes/titan/5.jpg",
+   "/homes/titan/6.jpg",
+   "/homes/titan/7.jpg",
+   "/homes/titan/8.jpg",
+   "/homes/titan/9.jpg",
+   "/homes/titan/10.jpg",
+   "/homes/titan/11.jpg",
+   "/homes/titan/12.jpg"
+  ],
+  "tour": "uvMLnkHoeon"
  },
  {
   "slug": "tremor",
