@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# home designer: segmentation model cache and debug output
+.cache/
+.segment-debug/
+.designer-preview.jpg

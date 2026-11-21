@@ -7,6 +7,7 @@ import HomeCard from "../../components/HomeCard";
 import Gallery from "../../components/Gallery";
 import { ArrowRight } from "../../components/Icons";
 import Nav from "../../components/Nav";
+import { hasDesigner } from "../../lib/designer";
 import { cover, getHome, homes, homeAlt } from "../../lib/homes";
 import { pageMetadata } from "../../lib/seo";
 import { site, usd } from "../../lib/site";
@@ -102,6 +103,20 @@ export default async function HomePage({ params }: Props) {
                     Request a visit
                   </Link>
                 </div>
+                {hasDesigner(home.slug) && (
+                  <Link
+                    href={`/homes/${home.slug}/design`}
+                    className="group mt-4 flex items-center gap-4 rounded-2xl border border-clay/30 bg-blush px-5 py-4 transition-colors hover:border-clay"
+                  >
+                    <span className="flex-1">
+                      <span className="block font-semibold text-clay">Design this home</span>
+                      <span className="block text-sm text-muted">
+                        Pick the siding, cabinets, counters and floors on real photos of the {home.name}.
+                      </span>
+                    </span>
+                    <ArrowRight className="h-5 w-5 text-clay transition-transform group-hover:translate-x-1" />
+                  </Link>
+                )}
               </div>
             </div>
           </div>

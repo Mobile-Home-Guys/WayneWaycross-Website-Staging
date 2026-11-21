@@ -1,8 +1,9 @@
 const REQUIRED = ["name", "email", "phone", "buyerType"] as const;
-const FIELDS = [...REQUIRED, "budget", "location"] as const;
+const FIELDS = [...REQUIRED, "budget", "location", "home"] as const;
 
 /**
- * Receives quote requests from the closing-section form.
+ * Receives quote requests from the closing-section form, and from the home designer
+ * (/homes/<slug>/design), which adds the home and the buyer's picks as `design`.
  * Set LEAD_WEBHOOK_URL (e.g. a CRM or Zapier hook) to forward each lead as JSON.
  */
 export async function POST(request: Request) {
@@ -11,6 +12,8 @@ export async function POST(request: Request) {
 
   const lead: Record<string, string> = {};
   for (const k of FIELDS) lead[k] = String(body[k] ?? "").trim().slice(0, 300);
+  const design = String(body.design ?? "").trim().slice(0, 2000);
+  if (design) lead.design = design;
   if (REQUIRED.some((k) => !lead[k]) || !/^\S+@\S+\.\S+$/.test(lead.email)) {
     return Response.json({ error: "Missing required fields" }, { status: 400 });
   }

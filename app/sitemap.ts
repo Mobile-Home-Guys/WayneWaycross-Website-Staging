@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { hasDesigner } from "./lib/designer";
 import { homes } from "./lib/homes";
 import { absoluteUrl } from "./lib/seo";
 
@@ -11,5 +12,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: absoluteUrl("/upgrades") },
     { url: absoluteUrl("/contact") },
     ...homes.map((h) => ({ url: absoluteUrl(`/homes/${h.slug}`), images: [absoluteUrl(h.images[0])] })),
+    ...homes.filter((h) => hasDesigner(h.slug)).map((h) => ({ url: absoluteUrl(`/homes/${h.slug}/design`) })),
   ];
 }
