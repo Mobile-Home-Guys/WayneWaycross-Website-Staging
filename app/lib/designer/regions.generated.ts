@@ -2,6 +2,99 @@
 import type { DesignerPhotos } from "./types";
 
 export const designerRegions: Record<string, DesignerPhotos> = {
+  "ace": {
+    "exterior": {
+      "src": "/homes/ace/15.jpg",
+      "caption": "Outside",
+      "width": 1000,
+      "height": 667,
+      "cladding": "vinyl",
+      "regions": {
+        "siding": {
+          "mask": "/designer/ace/exterior-siding.png",
+          "ref": 0.69,
+          "asBuilt": "#ADB0B5"
+        },
+        "shutters": {
+          "mask": "/designer/ace/exterior-shutters.png",
+          "ref": 0.3067,
+          "asBuilt": "#3C516A"
+        }
+      }
+    },
+    "kitchen": {
+      "src": "/homes/ace/18.jpg",
+      "caption": "Kitchen",
+      "width": 1000,
+      "height": 665,
+      "credit": "Live Oak Homes",
+      "regions": {
+        "cabinets": {
+          "mask": "/designer/ace/kitchen-cabinets.png",
+          "ref": 0.4624,
+          "asBuilt": "#946F4F"
+        },
+        "counters": {
+          "mask": "/designer/ace/kitchen-counters.png",
+          "ref": 0.71,
+          "asBuilt": "#AEB6C0"
+        },
+        "island": {
+          "mask": "/designer/ace/kitchen-island.png",
+          "ref": 0.8,
+          "asBuilt": "#C2CEDF"
+        },
+        "flooring": {
+          "mask": "/designer/ace/kitchen-flooring.png",
+          "ref": 0.6544,
+          "asBuilt": "#A9A6A5"
+        }
+      }
+    },
+    "living": {
+      "src": "/homes/ace/17.jpg",
+      "caption": "Living room",
+      "width": 1000,
+      "height": 665,
+      "credit": "Live Oak Homes",
+      "regions": {
+        "walls": {
+          "mask": "/designer/ace/living-walls.png",
+          "ref": 0.6597,
+          "asBuilt": "#A8A8AA"
+        },
+        "flooring": {
+          "mask": "/designer/ace/living-flooring.png",
+          "ref": 0.4497,
+          "asBuilt": "#797169"
+        }
+      }
+    },
+    "bath": {
+      "src": "/homes/ace/29.jpg",
+      "caption": "Bathroom",
+      "width": 1000,
+      "height": 665,
+      "credit": "Live Oak Homes",
+      "regions": {
+        "vanity": {
+          "mask": "/designer/ace/bath-vanity.png",
+          "ref": 0.1046,
+          "asBuilt": "#2C1604"
+        },
+        "vanitytop": {
+          "mask": "/designer/ace/bath-vanitytop.png",
+          "ref": 0.6431,
+          "asBuilt": "#A4A4A6"
+        },
+        "bathwalls": {
+          "mask": "/designer/ace/bath-bathwalls.png",
+          "ref": 0.683,
+          "asBuilt": "#B2AEAB"
+        }
+      }
+    }
+  },
   "charger": {
     "exterior": {
       "src": "/designer/charger/exterior.webp",
@@ -195,6 +288,95 @@ export const designerRegions: Record<string, DesignerPhotos> = {
       }
     }
   },
+  "defender": {
+    "exterior": {
+      "src": "/homes/defender/20.jpg",
+      "caption": "Front elevation",
+      "width": 1000,
+      "height": 665,
+      "cladding": "vinyl",
+      "credit": "Live Oak Homes",
+      "regions": {
+        "siding": {
+          "mask": "/designer/defender/exterior-siding.png",
+          "ref": 0.7909,
+          "asBuilt": "#C7CBCB"
+        }
+      }
+    },
+    "kitchen": {
+      "src": "/homes/defender/25.jpg",
+      "caption": "Kitchen",
+      "width": 1000,
+      "height": 665,
+      "credit": "Live Oak Homes",
+      "regions": {
+        "cabinets": {
+          "mask": "/designer/defender/kitchen-cabinets.png",
+          "ref": 0.7335,
+          "asBuilt": "#B8BAC6"
+        },
+        "counters": {
+          "mask": "/designer/defender/kitchen-counters.png",
+          "ref": 0.825,
+          "asBuilt": "#D2D1DC"
+        },
+        "island": {
+          "mask": "/designer/defender/kitchen-island.png",
+          "ref": 0.7988,
+          "asBuilt": "#D1C9CC"
+        },
+        "flooring": {
+          "mask": "/designer/defender/kitchen-flooring.png",
+          "ref": 0.7294,
+          "asBuilt": "#BBB8C0"
+        }
+      }
+    },
+    "living": {
+      "src": "/homes/defender/22.jpg",
+      "caption": "Living room",
+      "width": 1000,
+      "height": 665,
+      "credit": "Live Oak Homes",
+      "regions": {
+        "walls": {
+          "mask": "/designer/defender/living-walls.png",
+          "ref": 0.6007,
+          "asBuilt": "#9B989C"
+        },
+        "flooring": {
+          "mask": "/designer/defender/living-flooring.png",
+          "ref": 0.6751,
+          "asBuilt": "#AEAAB4"
+        }
+      }
+    },
+    "bath": {
+      "src": "/homes/defender/31.jpg",
+      "caption": "Bathroom",
+      "width": 1000,
+      "height": 665,
+      "credit": "Live Oak Homes",
+      "regions": {
+        "vanity": {
+          "mask": "/designer/defender/bath-vanity.png",
+          "ref": 0.6266,
+          "asBuilt": "#A0A09E"
+        },
+        "vanitytop": {
+          "mask": "/designer/defender/bath-vanitytop.png",
+          "ref": 0.8023,
+          "asBuilt": "#C7CDD9"
+        },
+        "bathwalls": {
+          "mask": "/designer/defender/bath-bathwalls.png",
+          "ref": 0.6751,
+          "asBuilt": "#A9ADB4"
+        }
+      }
+    }
+  },
   "dogwood": {
     "exterior": {
       "src": "/designer/dogwood/exterior.webp",
@@ -285,6 +467,171 @@ export const designerRegions: Record<string, DesignerPhotos> = {
           "mask": "/designer/dogwood/bath-4-flooring.png",
           "ref": 0.3798,
           "asBuilt": "#65605D"
+        }
+      }
+    }
+  },
+  "dolly": {
+    "exterior": {
+      "src": "/homes/dolly/0.jpg",
+      "caption": "Front elevation",
+      "width": 1000,
+      "height": 665,
+      "cladding": "vinyl",
+      "credit": "Live Oak Homes",
+      "regions": {
+        "siding": {
+          "mask": "/designer/dolly/exterior-siding.png",
+          "ref": 0.4946,
+          "asBuilt": "#73837F"
+        }
+      }
+    },
+    "kitchen": {
+      "src": "/homes/dolly/3.jpg",
+      "caption": "Kitchen",
+      "width": 1000,
+      "height": 665,
+      "credit": "Live Oak Homes",
+      "regions": {
+        "cabinets": {
+          "mask": "/designer/dolly/kitchen-cabinets.png",
+          "ref": 0.4147,
+          "asBuilt": "#686B66"
+        },
+        "counters": {
+          "mask": "/designer/dolly/kitchen-counters.png",
+          "ref": 0.6947,
+          "asBuilt": "#ABB2BB"
+        },
+        "island": {
+          "mask": "/designer/dolly/kitchen-island.png",
+          "ref": 0.8536,
+          "asBuilt": "#D6D9E4"
+        },
+        "flooring": {
+          "mask": "/designer/dolly/kitchen-flooring.png",
+          "ref": 0.4969,
+          "asBuilt": "#897C72"
+        },
+        "walls": {
+          "mask": "/designer/dolly/kitchen-walls.png",
+          "ref": 0.6351,
+          "asBuilt": "#A5A298"
+        }
+      }
+    },
+    "bath": {
+      "src": "/homes/dolly/11.jpg",
+      "caption": "Bathroom",
+      "width": 1000,
+      "height": 667,
+      "credit": "Live Oak Homes",
+      "regions": {
+        "vanity": {
+          "mask": "/designer/dolly/bath-vanity.png",
+          "ref": 0.4398,
+          "asBuilt": "#6F726A"
+        },
+        "vanitytop": {
+          "mask": "/designer/dolly/bath-vanitytop.png",
+          "ref": 0.8172,
+          "asBuilt": "#C9D2DF"
+        },
+        "bathwalls": {
+          "mask": "/designer/dolly/bath-bathwalls.png",
+          "ref": 0.6038,
+          "asBuilt": "#929F94"
+        }
+      }
+    }
+  },
+  "georgia-giant": {
+    "exterior": {
+      "src": "/homes/georgia-giant/0.jpg",
+      "caption": "Outside",
+      "width": 1000,
+      "height": 667,
+      "cladding": "smart-panel",
+      "regions": {
+        "siding": {
+          "mask": "/designer/georgia-giant/exterior-siding.png",
+          "ref": 0.4193,
+          "asBuilt": "#616C7B"
+        },
+        "shutters": {
+          "mask": "/designer/georgia-giant/exterior-shutters.png",
+          "ref": 0.6888,
+          "asBuilt": "#D7A677"
+        }
+      }
+    },
+    "kitchen": {
+      "src": "/homes/georgia-giant/3.jpg",
+      "caption": "Kitchen",
+      "width": 1000,
+      "height": 667,
+      "regions": {
+        "cabinets": {
+          "mask": "/designer/georgia-giant/kitchen-cabinets.png",
+          "ref": 0.4623,
+          "asBuilt": "#9B6B4B"
+        },
+        "counters": {
+          "mask": "/designer/georgia-giant/kitchen-counters.png",
+          "ref": 0.7397,
+          "asBuilt": "#C3BCB4"
+        },
+        "island": {
+          "mask": "/designer/georgia-giant/kitchen-island.png",
+          "ref": 0.7948,
+          "asBuilt": "#CECAC9"
+        },
+        "flooring": {
+          "mask": "/designer/georgia-giant/kitchen-flooring.png",
+          "ref": 0.6821,
+          "asBuilt": "#C1A995"
+        }
+      }
+    },
+    "living": {
+      "src": "/homes/georgia-giant/2.jpg",
+      "caption": "Living room",
+      "width": 1000,
+      "height": 667,
+      "regions": {
+        "walls": {
+          "mask": "/designer/georgia-giant/living-walls.png",
+          "ref": 0.7542,
+          "asBuilt": "#C4C0BB"
+        },
+        "flooring": {
+          "mask": "/designer/georgia-giant/living-flooring.png",
+          "ref": 0.6631,
+          "asBuilt": "#B8A595"
+        }
+      }
+    },
+    "bath": {
+      "src": "/homes/georgia-giant/12.jpg",
+      "caption": "Bathroom",
+      "width": 1000,
+      "height": 667,
+      "regions": {
+        "vanity": {
+          "mask": "/designer/georgia-giant/bath-vanity.png",
+          "ref": 0.353,
+          "asBuilt": "#7B512F"
+        },
+        "vanitytop": {
+          "mask": "/designer/georgia-giant/bath-vanitytop.png",
+          "ref": 0.8431,
+          "asBuilt": "#D8D7D5"
+        },
+        "bathwalls": {
+          "mask": "/designer/georgia-giant/bath-bathwalls.png",
+          "ref": 0.7683,
+          "asBuilt": "#C3C4C5"
         }
       }
     }
@@ -670,6 +1017,105 @@ export const designerRegions: Record<string, DesignerPhotos> = {
       }
     }
   },
+  "maverick": {
+    "exterior": {
+      "src": "/homes/maverick/24.jpg",
+      "caption": "Front elevation",
+      "width": 1000,
+      "height": 665,
+      "cladding": "vinyl",
+      "credit": "Live Oak Homes",
+      "regions": {
+        "siding": {
+          "mask": "/designer/maverick/exterior-siding.png",
+          "ref": 0.6982,
+          "asBuilt": "#B4B1B1"
+        },
+        "shutters": {
+          "mask": "/designer/maverick/exterior-shutters.png",
+          "ref": 0.9103,
+          "asBuilt": "#E8E8E8"
+        }
+      }
+    },
+    "kitchen": {
+      "src": "/homes/maverick/17.jpg",
+      "caption": "Kitchen",
+      "width": 1000,
+      "height": 665,
+      "credit": "Live Oak Homes",
+      "regions": {
+        "cabinets": {
+          "mask": "/designer/maverick/kitchen-cabinets.png",
+          "ref": 0.7168,
+          "asBuilt": "#B7B7B4"
+        },
+        "counters": {
+          "mask": "/designer/maverick/kitchen-counters.png",
+          "ref": 0.5134,
+          "asBuilt": "#838286"
+        },
+        "island": {
+          "mask": "/designer/maverick/kitchen-island.png",
+          "ref": 0.7689,
+          "asBuilt": "#C1C4CD"
+        },
+        "flooring": {
+          "mask": "/designer/maverick/kitchen-flooring.png",
+          "ref": 0.5565,
+          "asBuilt": "#8D8D93"
+        }
+      }
+    },
+    "living": {
+      "src": "/homes/maverick/16.jpg",
+      "caption": "Living room",
+      "width": 1000,
+      "height": 665,
+      "credit": "Live Oak Homes",
+      "regions": {
+        "walls": {
+          "mask": "/designer/maverick/living-walls.png",
+          "ref": 0.6164,
+          "asBuilt": "#A29D95"
+        },
+        "flooring": {
+          "mask": "/designer/maverick/living-flooring.png",
+          "ref": 0.7492,
+          "asBuilt": "#BBBFC9"
+        }
+      }
+    },
+    "bath": {
+      "src": "/homes/maverick/23.jpg",
+      "caption": "Bathroom",
+      "width": 1000,
+      "height": 665,
+      "credit": "Live Oak Homes",
+      "regions": {
+        "vanity": {
+          "mask": "/designer/maverick/bath-vanity.png",
+          "ref": 0.7295,
+          "asBuilt": "#BEB7BC"
+        },
+        "vanitytop": {
+          "mask": "/designer/maverick/bath-vanitytop.png",
+          "ref": 0.7223,
+          "asBuilt": "#B8B6C3"
+        },
+        "bathwalls": {
+          "mask": "/designer/maverick/bath-bathwalls.png",
+          "ref": 0.4965,
+          "asBuilt": "#778282"
+        },
+        "flooring": {
+          "mask": "/designer/maverick/bath-flooring.png",
+          "ref": 0.6427,
+          "asBuilt": "#A5A2A9"
+        }
+      }
+    }
+  },
   "quail-ridge": {
     "kitchen": {
       "src": "/designer/quail-ridge/kitchen.webp",
@@ -898,6 +1344,180 @@ export const designerRegions: Record<string, DesignerPhotos> = {
           "mask": "/designer/silverado/bath-flooring.png",
           "ref": 0.6127,
           "asBuilt": "#9C9BA0"
+        }
+      }
+    }
+  },
+  "slugger": {
+    "exterior": {
+      "src": "/homes/slugger/17.jpg",
+      "caption": "Outside",
+      "width": 1000,
+      "height": 667,
+      "cladding": "vinyl",
+      "regions": {
+        "siding": {
+          "mask": "/designer/slugger/exterior-siding.png",
+          "ref": 0.6298,
+          "asBuilt": "#A1A0A1"
+        }
+      }
+    },
+    "kitchen": {
+      "src": "/homes/slugger/2.jpg",
+      "caption": "Kitchen",
+      "width": 1000,
+      "height": 667,
+      "regions": {
+        "cabinets": {
+          "mask": "/designer/slugger/kitchen-cabinets.png",
+          "ref": 0.7924,
+          "asBuilt": "#CBC9CA"
+        },
+        "counters": {
+          "mask": "/designer/slugger/kitchen-counters.png",
+          "ref": 0.7408,
+          "asBuilt": "#BDBCC2"
+        },
+        "island": {
+          "mask": "/designer/slugger/kitchen-island.png",
+          "ref": 0.7048,
+          "asBuilt": "#B7B3B1"
+        },
+        "flooring": {
+          "mask": "/designer/slugger/kitchen-flooring.png",
+          "ref": 0.5561,
+          "asBuilt": "#968B86"
+        },
+        "walls": {
+          "mask": "/designer/slugger/kitchen-walls.png",
+          "ref": 0.6232,
+          "asBuilt": "#9E9EA2"
+        }
+      }
+    },
+    "living": {
+      "src": "/homes/slugger/1.jpg",
+      "caption": "Living room",
+      "width": 1000,
+      "height": 667,
+      "regions": {
+        "walls": {
+          "mask": "/designer/slugger/living-walls.png",
+          "ref": 0.6913,
+          "asBuilt": "#AFB1B2"
+        }
+      }
+    },
+    "bath": {
+      "src": "/homes/slugger/12.jpg",
+      "caption": "Bathroom",
+      "width": 1000,
+      "height": 667,
+      "regions": {
+        "vanity": {
+          "mask": "/designer/slugger/bath-vanity.png",
+          "ref": 0.7244,
+          "asBuilt": "#BCB8B2"
+        },
+        "vanitytop": {
+          "mask": "/designer/slugger/bath-vanitytop.png",
+          "ref": 0.7734,
+          "asBuilt": "#C5C6C8"
+        },
+        "bathwalls": {
+          "mask": "/designer/slugger/bath-bathwalls.png",
+          "ref": 0.8241,
+          "asBuilt": "#D3D2D0"
+        }
+      }
+    }
+  },
+  "titan": {
+    "exterior": {
+      "src": "/homes/titan/12.jpg",
+      "caption": "Front elevation",
+      "width": 1000,
+      "height": 665,
+      "cladding": "vinyl",
+      "credit": "Live Oak Homes",
+      "regions": {
+        "siding": {
+          "mask": "/designer/titan/exterior-siding.png",
+          "ref": 0.7532,
+          "asBuilt": "#C2C0BD"
+        },
+        "shutters": {
+          "mask": "/designer/titan/exterior-shutters.png",
+          "ref": 0.9725,
+          "asBuilt": "#F8F8F8"
+        }
+      }
+    },
+    "kitchen": {
+      "src": "/homes/titan/1.jpg",
+      "caption": "Kitchen",
+      "width": 1000,
+      "height": 665,
+      "credit": "Live Oak Homes",
+      "regions": {
+        "cabinets": {
+          "mask": "/designer/titan/kitchen-cabinets.png",
+          "ref": 0.7268,
+          "asBuilt": "#BBBAB5"
+        },
+        "counters": {
+          "mask": "/designer/titan/kitchen-counters.png",
+          "ref": 0.5323,
+          "asBuilt": "#898885"
+        },
+        "island": {
+          "mask": "/designer/titan/kitchen-island.png",
+          "ref": 0.3439,
+          "asBuilt": "#595756"
+        },
+        "flooring": {
+          "mask": "/designer/titan/kitchen-flooring.png",
+          "ref": 0.788,
+          "asBuilt": "#CCC7CB"
+        }
+      }
+    },
+    "living": {
+      "src": "/homes/titan/0.jpg",
+      "caption": "Living room",
+      "width": 1000,
+      "height": 665,
+      "credit": "Live Oak Homes",
+      "regions": {
+        "walls": {
+          "mask": "/designer/titan/living-walls.png",
+          "ref": 0.5649,
+          "asBuilt": "#948F8B"
+        }
+      }
+    },
+    "bath": {
+      "src": "/homes/titan/9.jpg",
+      "caption": "Bathroom",
+      "width": 1000,
+      "height": 665,
+      "credit": "Live Oak Homes",
+      "regions": {
+        "vanity": {
+          "mask": "/designer/titan/bath-vanity.png",
+          "ref": 0.6931,
+          "asBuilt": "#B1B1AF"
+        },
+        "vanitytop": {
+          "mask": "/designer/titan/bath-vanitytop.png",
+          "ref": 0.3203,
+          "asBuilt": "#4F5257"
+        },
+        "bathwalls": {
+          "mask": "/designer/titan/bath-bathwalls.png",
+          "ref": 0.565,
+          "asBuilt": "#948E90"
         }
       }
     }
