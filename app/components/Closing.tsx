@@ -1,77 +1,104 @@
-import Image from "next/image";
 import Link from "next/link";
 import { site } from "../lib/site";
-import Reveal from "./Reveal";
-import { ArrowRight, Check, Logo, PhoneIcon, PinIcon } from "./Icons";
+import { ArrowRight, Check, ClockIcon, Logo, PhoneIcon, PinIcon } from "./Icons";
 import QuoteForm from "./QuoteForm";
 
+/** Contact band with the quote form, then the address, hours and phone in three columns. */
 export function CallToAction() {
   const trust = ["Exclusive Live Oak Homes retailer", "Energy Star certified homes", "Local delivery & setup"];
+  const { street, city, region, postalCode } = site.address;
   return (
-    <section id="contact" className="relative scroll-mt-24 overflow-hidden bg-night px-4 py-24 md:py-32">
-      <Image src="/hero.jpg" alt="" fill sizes="100vw" className="object-cover opacity-25" />
-      <div className="absolute inset-0 bg-gradient-to-r from-night via-night/90 to-night/70" />
-      <div className="absolute inset-x-0 top-0 h-1 bg-clay" />
-
-      <div className="relative mx-auto grid max-w-[1280px] items-center gap-14 lg:grid-cols-[1.1fr_1fr]">
-        <div className="text-white">
-          <Reveal as="p" className="eyebrow text-[#ff6b70]">
-            Get started
-          </Reveal>
-          <Reveal as="h2" delay={80} className="display mt-5 text-[clamp(2.6rem,5.4vw,4.4rem)]">
-            Ready to find your way home?
-          </Reveal>
-          <Reveal as="p" delay={120} className="mt-6 max-w-lg text-lg leading-relaxed text-white/75">
-            Tell us a little about what you&rsquo;re looking for and we&rsquo;ll put together a free quote. Or visit our
-            lot in {site.city}. We&rsquo;d love to meet your family.
-          </Reveal>
-          <Reveal delay={240} className="mt-9 flex flex-wrap gap-3">
-            <Link
-              href="/homes"
-              className="group inline-flex items-center gap-2.5 rounded-lg bg-clay px-7 py-4 text-[16px] font-bold text-white transition-colors hover:bg-clay-dark"
-            >
-              Browse homes
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-            <a
-              href={site.phoneHref}
-              className="inline-flex items-center gap-2.5 rounded-lg border border-white/30 bg-white/5 px-7 py-4 text-[16px] font-bold text-white backdrop-blur transition-colors hover:border-white/60 hover:bg-white/10"
-            >
-              <PhoneIcon className="h-5 w-5" />
-              Call {site.phone}
-            </a>
-          </Reveal>
-          <Reveal as="ul" delay={360} className="mt-10 flex flex-wrap gap-x-8 gap-y-3 text-white/85">
-            {trust.map((t) => (
-              <li key={t} className="inline-flex items-center gap-2.5">
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-gold text-night">
-                  <Check className="h-3 w-3" />
-                </span>
-                {t}
-              </li>
-            ))}
-          </Reveal>
-        </div>
-
-        <Reveal
-          delay={200}
-          className="rounded-2xl border border-white/15 bg-night-2/80 p-6 shadow-[0_40px_80px_-30px_rgba(0,0,0,0.7)] backdrop-blur-md sm:p-10"
-        >
-          <p className="text-[11px] font-bold tracking-[0.18em] text-gold uppercase">Talk to our team</p>
-          <h3 className="display mt-2 text-[clamp(1.8rem,3vw,2.4rem)] text-white">Get a free quote</h3>
-          <div className="mt-7">
-            <QuoteForm />
+    <>
+      <section id="contact" className="scroll-mt-32 border-t-4 border-clay bg-white">
+        <div className="mx-auto grid max-w-[1280px] gap-10 px-4 py-14 sm:px-6 md:py-20 lg:grid-cols-[1fr_1.05fr] lg:gap-16 lg:px-8">
+          <div>
+            <p className="eyebrow">Get started</p>
+            <h2 className="mt-2 text-4xl md:text-6xl">Ready to find your way home?</h2>
+            <p className="mt-4 max-w-lg text-lg leading-relaxed text-muted">
+              Tell us a little about what you&rsquo;re looking for and we&rsquo;ll put together a free quote. Or visit our
+              lot in {site.city}. We&rsquo;d love to meet your family.
+            </p>
+            <ul className="mt-6 grid gap-2.5 text-[16px] text-ink-soft">
+              {trust.map((t) => (
+                <li key={t} className="flex items-center gap-2.5">
+                  <Check className="h-5 w-5 shrink-0 text-sage" />
+                  {t}
+                </li>
+              ))}
+            </ul>
+            <div className="mt-8 grid gap-3 sm:flex">
+              <Link href="/homes" className="btn btn-ink group px-7 py-4">
+                Browse homes
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+              <a href={site.phoneHref} className="btn btn-outline px-7 py-4">
+                <PhoneIcon className="h-5 w-5" />
+                Call {site.phone}
+              </a>
+            </div>
           </div>
-        </Reveal>
-      </div>
-    </section>
+
+          <div className="bg-band p-6 sm:p-8">
+            <h3 className="text-3xl">Get a free quote</h3>
+            <p className="mt-1 mb-6 text-muted">Our team will call you back. No obligation.</p>
+            <QuoteForm tone="light" />
+          </div>
+        </div>
+      </section>
+
+      <section aria-label="Visit us" className="bg-ink text-white">
+        <div className="mx-auto grid max-w-[1280px] divide-y divide-white/10 px-4 sm:px-6 md:grid-cols-3 md:divide-x md:divide-y-0 lg:px-8">
+          <a
+            href={site.mapUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex gap-4 py-8 transition-colors hover:text-[#ff4d55] md:pr-8"
+          >
+            <PinIcon className="h-8 w-8 shrink-0 text-clay" />
+            <span>
+              <span className="block text-xl font-bold tracking-[0.06em] uppercase [font-family:var(--font-condensed)]">
+                Visit our lot
+              </span>
+              <span className="mt-1 block text-white/75">
+                {street}, {city}, {region} {postalCode}
+              </span>
+              <span className="spec mt-2 block text-[14px] tracking-[0.08em] text-[#ff4d55] uppercase">Get directions</span>
+            </span>
+          </a>
+          <div className="flex gap-4 py-8 md:px-8">
+            <ClockIcon className="h-8 w-8 shrink-0 text-clay" />
+            <div>
+              <p className="text-xl font-bold tracking-[0.06em] uppercase [font-family:var(--font-condensed)]">Hours</p>
+              <dl className="mt-1 grid grid-cols-[auto_1fr] gap-x-4 text-white/75">
+                {site.hoursText.map(([d, t]) => (
+                  <div key={d} className="contents">
+                    <dt className="font-semibold text-white">{d}</dt>
+                    <dd>{t}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </div>
+          <a href={site.phoneHref} className="group flex gap-4 py-8 transition-colors hover:text-[#ff4d55] md:pl-8">
+            <PhoneIcon className="h-8 w-8 shrink-0 text-clay" />
+            <span>
+              <span className="block text-xl font-bold tracking-[0.06em] uppercase [font-family:var(--font-condensed)]">
+                Call us
+              </span>
+              <span className="mt-1 block text-2xl font-bold [font-family:var(--font-condensed)]">{site.phone}</span>
+              <span className="mt-1 block text-white/75">Talk to our team about any home.</span>
+            </span>
+          </a>
+        </div>
+      </section>
+    </>
   );
 }
 
 export function Footer() {
   const shop = [
     { href: "/homes", label: "All homes" },
-    { href: "/#on-the-lot", label: "On our lot" },
+    { href: "/homes?show=lot", label: "On our lot" },
     { href: "/#design", label: "Design online" },
     { href: "/specials", label: "Specials" },
     { href: "/upgrades", label: "Upgrades" },
@@ -86,36 +113,22 @@ export function Footer() {
     { href: site.instagram, label: "Instagram" },
     { href: site.youtube, label: "YouTube" },
   ];
-  const { street, city, region, postalCode } = site.address;
-  const heading = "text-[11px] font-bold tracking-[0.18em] text-white/45 uppercase";
+  const { city, region } = site.address;
+  const heading = "text-lg font-bold tracking-[0.08em] text-white uppercase [font-family:var(--font-condensed)]";
   return (
-    <footer className="bg-night text-white/70">
-      <div className="mx-auto grid max-w-[1328px] gap-12 px-4 py-16 sm:px-6 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.3fr]">
+    <footer className="border-t border-white/10 bg-night-2 text-white/70">
+      <div className="mx-auto grid max-w-[1280px] gap-10 px-4 py-14 sm:px-6 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr] lg:px-8">
         <div>
-          <span className="inline-block rounded-xl bg-white px-3 py-2">
+          <span className="inline-block bg-white px-3 py-2">
             <Logo className="h-12" />
           </span>
-          <p className="mt-6 max-w-xs leading-relaxed">
+          <p className="mt-5 max-w-xs leading-relaxed">
             The exclusive Live Oak Homes retailer in {city}, {region}. Built in Waycross, sold in Waycross.
           </p>
-          <ul className="mt-6 flex gap-2">
-            {social.map((s) => (
-              <li key={s.label}>
-                <a
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block rounded-lg border border-white/15 px-3 py-1.5 text-sm transition-colors hover:border-white/40 hover:text-white"
-                >
-                  {s.label}
-                </a>
-              </li>
-            ))}
-          </ul>
         </div>
         <nav aria-label="Shop">
           <p className={heading}>Shop</p>
-          <ul className="mt-5 space-y-3">
+          <ul className="mt-4 space-y-2.5">
             {shop.map((l) => (
               <li key={l.label}>
                 <Link href={l.href} className="transition-colors hover:text-white">
@@ -127,7 +140,7 @@ export function Footer() {
         </nav>
         <nav aria-label="Company">
           <p className={heading}>Company</p>
-          <ul className="mt-5 space-y-3">
+          <ul className="mt-4 space-y-2.5">
             {company.map((l) => (
               <li key={l.label}>
                 <Link href={l.href} className="transition-colors hover:text-white">
@@ -137,37 +150,21 @@ export function Footer() {
             ))}
           </ul>
         </nav>
-        <address className="not-italic">
-          <p className={heading}>Visit us</p>
-          <a
-            href={site.mapUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-5 flex gap-2.5 transition-colors hover:text-white"
-          >
-            <PinIcon className="mt-0.5 h-5 w-5 shrink-0 text-clay" />
-            <span>
-              {street}
-              <br />
-              {city}, {region} {postalCode}
-            </span>
-          </a>
-          <a href={site.phoneHref} className="mt-4 flex items-center gap-2.5 font-bold text-white hover:text-clay">
-            <PhoneIcon className="h-5 w-5 shrink-0 text-clay" />
-            {site.phone}
-          </a>
-          <dl className="mt-5 grid grid-cols-[auto_1fr] gap-x-5 gap-y-1 text-sm">
-            {site.hoursText.map(([d, t]) => (
-              <div key={d} className="contents">
-                <dt className="font-semibold text-white/85">{d}</dt>
-                <dd>{t}</dd>
-              </div>
+        <div>
+          <p className={heading}>Follow us</p>
+          <ul className="mt-4 space-y-2.5">
+            {social.map((s) => (
+              <li key={s.label}>
+                <a href={s.href} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-white">
+                  {s.label}
+                </a>
+              </li>
             ))}
-          </dl>
-        </address>
+          </ul>
+        </div>
       </div>
       <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-[1328px] flex-col items-center justify-between gap-2 px-4 py-6 text-sm text-white/45 sm:flex-row sm:px-6">
+        <div className="mx-auto flex max-w-[1280px] flex-col items-center justify-between gap-2 px-4 py-5 text-sm text-white/45 sm:flex-row sm:px-6 lg:px-8">
           <p>
             © {new Date().getFullYear()} {site.fullName}
           </p>

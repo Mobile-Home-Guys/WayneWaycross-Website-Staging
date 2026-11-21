@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { getReviews, googleReviewsUrl, googleWriteReviewUrl, type Review } from "../lib/reviews";
-import { ArrowRight } from "./Icons";
+import { ArrowRight, QuoteIcon } from "./Icons";
 import Reveal from "./Reveal";
 
 const fmtDate = (iso: string) =>
@@ -36,13 +36,16 @@ function ReviewCard({ review, hidden }: { review: Review; hidden?: boolean }) {
   return (
     <figure
       aria-hidden={hidden || undefined}
-      className="flex w-[300px] shrink-0 flex-col rounded-2xl border border-line border-t-[3px] border-t-clay bg-white p-6 shadow-[0_10px_30px_-18px_rgba(13,21,32,0.35)] sm:w-[360px]"
+      className="flex w-[300px] shrink-0 flex-col border-t-4 border-clay bg-white p-6 shadow-[0_2px_0_var(--color-ink)] sm:w-[360px]"
     >
       <div className="flex items-center justify-between">
-        <Stars rating={review.rating} />
-        <GoogleG className="h-5 w-5" />
+        <QuoteIcon className="h-8 w-8 text-clay" />
+        <span className="flex items-center gap-2">
+          <Stars rating={review.rating} />
+          <GoogleG className="h-5 w-5" />
+        </span>
       </div>
-      <blockquote className="mt-4 line-clamp-5 flex-1 text-[15px] leading-relaxed text-ink/85">
+      <blockquote className="mt-4 line-clamp-5 flex-1 text-[16px] leading-relaxed text-ink-soft">
         &ldquo;{review.text}&rdquo;
       </blockquote>
       <figcaption className="mt-5 flex items-center gap-3">
@@ -52,15 +55,15 @@ function ReviewCard({ review, hidden }: { review: Review; hidden?: boolean }) {
             alt=""
             width={40}
             height={40}
-            className="h-10 w-10 rounded-full object-cover"
+            className="h-10 w-10 object-cover"
           />
         ) : (
-          <span className="grid h-10 w-10 place-items-center rounded-full bg-night font-bold text-white">
+          <span className="grid h-10 w-10 place-items-center bg-ink font-bold text-white [font-family:var(--font-condensed)]">
             {review.author.charAt(0).toUpperCase()}
           </span>
         )}
         <span>
-          <span className="block text-sm font-medium text-ink">{review.author}</span>
+          <span className="block font-semibold text-ink">{review.author}</span>
           <span className="block text-xs text-muted">{fmtDate(review.date)}</span>
         </span>
       </figcaption>
@@ -95,20 +98,20 @@ export default async function Reviews({ id = "reviews" }: { id?: string }) {
   const rows = reviews.length >= 8 ? [reviews.filter((_, i) => i % 2 === 0), reviews.filter((_, i) => i % 2 === 1)] : [reviews];
 
   return (
-    <section id={id} className="scroll-mt-24 overflow-hidden py-24 md:py-28">
+    <section id={id} className="scroll-mt-32 overflow-hidden bg-band py-14 md:py-20">
       <div className="mx-auto max-w-[1280px] px-4 text-center sm:px-6">
         <Reveal as="p" className="eyebrow">
-          Reviews
+          What our customers say
         </Reveal>
-        <Reveal as="h2" delay={100} className="display mt-5 text-[clamp(2.4rem,4.8vw,4rem)]">
+        <Reveal as="h2" delay={100} className="mt-2 text-4xl md:text-6xl">
           Families love their new homes
         </Reveal>
         <Reveal
           delay={200}
-          className="mt-7 inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-2 rounded-xl border border-line bg-white px-5 py-3 text-muted shadow-[0_10px_30px_-20px_rgba(13,21,32,0.4)]"
+          className="mt-6 inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-2 border-2 border-line bg-white px-5 py-3 text-muted"
         >
           <GoogleG className="h-5 w-5" />
-          {rating !== null && <span className="display text-2xl text-ink">{rating.toFixed(1)}</span>}
+          {rating !== null && <span className="text-3xl leading-none font-bold text-ink [font-family:var(--font-condensed)]">{rating.toFixed(1)}</span>}
           <Stars rating={rating ?? 5} />
           <span>{total ? `${total} reviews on Google` : "Real reviews from our Google listing"}</span>
         </Reveal>
@@ -125,7 +128,7 @@ export default async function Reviews({ id = "reviews" }: { id?: string }) {
           href={googleReviewsUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="group inline-flex items-center gap-2 rounded-lg border border-ink/15 bg-white px-6 py-3.5 text-[15px] font-bold text-ink transition-colors hover:border-clay hover:text-clay"
+          className="btn btn-outline group px-6 py-3.5"
         >
           Read all reviews on Google
           <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -134,7 +137,7 @@ export default async function Reviews({ id = "reviews" }: { id?: string }) {
           href={googleWriteReviewUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center rounded-lg bg-clay px-6 py-3.5 text-[15px] font-bold text-white transition-colors hover:bg-clay-dark"
+          className="btn btn-red px-6 py-3.5"
         >
           Leave a review
         </a>

@@ -18,7 +18,7 @@ export default function SpecialsPage() {
     <>
       <JsonLd data={breadcrumbSchema([{ name: "Specials", path: "/specials" }])} />
       <Nav />
-      <main>
+      <main id="main">
         <PageHeader
           eyebrow="Available for a limited time"
           title="Quality homes at special pricing"

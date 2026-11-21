@@ -54,10 +54,10 @@ export default async function HomePage({ params }: Props) {
         ])}
       />
       <Nav />
-      <main>
-        <section id="top" className="night-surface relative overflow-hidden text-white">
-          <div className="relative mx-auto max-w-[1328px] px-4 pt-32 pb-12 sm:px-6 md:pt-40">
-            <nav aria-label="Breadcrumb" className="text-sm text-white/60">
+      <main id="main">
+        <section id="top" className="relative overflow-hidden bg-ink text-white">
+          <div className="relative mx-auto max-w-[1280px] px-4 pt-8 pb-12 sm:px-6 md:pt-10 lg:px-8">
+            <nav aria-label="Breadcrumb" className="spec text-[14px] tracking-[0.08em] text-white/60 uppercase">
               <Link href="/homes" className="hover:text-white">
                 Homes
               </Link>
@@ -66,47 +66,47 @@ export default async function HomePage({ params }: Props) {
             </nav>
             <div className="mt-6 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
               <div>
-                <p className="eyebrow text-[#ff6b70]">
+                <p className="eyebrow text-[#ff4d55]">
                   {[home.section, ...home.series].filter(Boolean).join(" · ") || "On our lot"}
                 </p>
-                <h1 className="display mt-4 text-[clamp(3rem,7vw,5.6rem)]">The {home.name}</h1>
+                <h1 className="mt-3 text-[3rem] sm:text-7xl lg:text-[5.5rem]">The {home.name}</h1>
                 <div className="mt-5 flex flex-wrap gap-2">
                   {home.onLot && (
-                    <span className="rounded-md bg-white px-3 py-1 text-xs font-bold tracking-[0.12em] text-clay uppercase">
+                    <span className="tag bg-white text-ink">
                       Available on our lot
                     </span>
                   )}
                   {home.markdown && (
-                    <span className="rounded-md bg-clay px-3 py-1 text-xs font-bold tracking-[0.12em] text-white uppercase">
+                    <span className="tag bg-clay text-white">
                       Marked down {usd(home.markdown)}
                     </span>
                   )}
                   {designable && (
-                    <span className="rounded-md border border-gold/50 px-3 py-1 text-xs font-bold tracking-[0.12em] text-gold uppercase">
+                    <span className="tag border border-white/40 text-white">
                       Design online
                     </span>
                   )}
                 </div>
               </div>
-              <dl className="grid grid-cols-3 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/10">
+              <dl className="grid grid-cols-3 gap-px overflow-hidden border-t-4 border-clay bg-white/10">
                 {stats.map((s) => (
-                  <div key={s.label} className="bg-night/90 px-5 py-4 sm:px-7">
-                    <dt className="text-[11px] font-bold tracking-[0.14em] text-white/55 uppercase">{s.label}</dt>
-                    <dd className="display mt-1 text-3xl sm:text-4xl">{s.value}</dd>
+                  <div key={s.label} className="bg-night-2 px-5 py-4 sm:px-7">
+                    <dt className="spec text-[13px] tracking-[0.12em] text-white/60 uppercase">{s.label}</dt>
+                    <dd className="mt-1 text-3xl font-bold [font-family:var(--font-condensed)] sm:text-4xl">{s.value}</dd>
                   </div>
                 ))}
               </dl>
             </div>
           </div>
-          <div className="h-1 bg-clay" />
+          <div className="h-1.5 bg-clay" />
         </section>
 
         <section className="px-4 py-14 sm:px-6 md:py-20">
           <div className="mx-auto grid max-w-[1280px] gap-10 lg:grid-cols-[1.6fr_1fr] lg:items-start">
             <Gallery images={home.images} alt={homeAlt(home)} />
             <aside className="space-y-4 lg:sticky lg:top-28">
-              <div className="rounded-2xl border border-line bg-white p-7 shadow-[0_30px_60px_-40px_rgba(13,21,32,0.45)]">
-                <h2 className="display text-[28px]">See the {home.name} in person</h2>
+              <div className="border-t-4 border-clay bg-band p-7">
+                <h2 className="text-3xl">See the {home.name} in person</h2>
                 <p className="mt-3 leading-relaxed text-muted">
                   Come see the {home.name}{" "}in person. We&rsquo;ll walk you through floor plan options, customization,
                   delivery and setup.
@@ -114,14 +114,14 @@ export default async function HomePage({ params }: Props) {
                 <div className="mt-6 flex flex-col gap-3">
                   <a
                     href={site.phoneHref}
-                    className="group inline-flex items-center justify-center gap-2 rounded-lg bg-clay px-7 py-4 font-bold text-white transition-colors hover:bg-clay-dark"
+                    className="btn btn-red px-7 py-4"
                   >
                     <PhoneIcon className="h-4 w-4" />
                     Call {site.phone}
                   </a>
                   <Link
                     href="/contact"
-                    className="inline-flex items-center justify-center rounded-lg border border-ink/15 bg-white px-7 py-4 font-bold text-ink transition-colors hover:border-clay hover:text-clay"
+                    className="btn btn-outline bg-white px-7 py-4"
                   >
                     Request a visit
                   </Link>
@@ -129,7 +129,7 @@ export default async function HomePage({ params }: Props) {
                 <ul className="mt-6 space-y-2 border-t border-line pt-5 text-sm text-muted">
                   {["Exclusive Live Oak Homes retailer", "Built in the Waycross area", "Local delivery & setup"].map((t) => (
                     <li key={t} className="flex items-center gap-2.5">
-                      <Check className="h-4 w-4 text-clay" />
+                      <Check className="h-4 w-4 text-sage" />
                       {t}
                     </li>
                   ))}
@@ -138,16 +138,16 @@ export default async function HomePage({ params }: Props) {
               {designable && (
                 <Link
                   href={`/homes/${home.slug}/design`}
-                  className="group night-surface flex items-center gap-4 overflow-hidden rounded-2xl p-6 text-white ring-1 ring-night transition-transform hover:-translate-y-0.5"
+                  className="group flex items-center gap-4 overflow-hidden border-t-4 border-clay bg-ink p-6 text-white transition-colors hover:bg-night-3"
                 >
                   <span className="flex-1">
-                    <span className="block text-[11px] font-bold tracking-[0.16em] text-gold uppercase">Design online</span>
-                    <span className="display mt-1 block text-2xl">Design this home</span>
+                    <span className="eyebrow text-[#ff4d55]">Design online</span>
+                    <span className="mt-1 block text-3xl font-bold uppercase [font-family:var(--font-condensed)]">Design this home</span>
                     <span className="mt-1 block text-sm text-white/65">
                       Pick the siding, cabinets, counters and floors on real photos of the {home.name}.
                     </span>
                   </span>
-                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-clay">
+                  <span className="grid h-12 w-12 shrink-0 place-items-center bg-clay">
                     <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-0.5" />
                   </span>
                 </Link>

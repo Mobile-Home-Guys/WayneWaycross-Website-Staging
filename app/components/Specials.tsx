@@ -3,44 +3,36 @@ import { clearance, specs } from "../lib/homes";
 import { usd } from "../lib/site";
 import HomeCard from "./HomeCard";
 import { ArrowRight } from "./Icons";
-import Reveal from "./Reveal";
 
 /** Clearance homes marked down on the dealership's Specials list. */
 export default function Specials() {
+  if (clearance.length === 0) return null;
   return (
-    <section id="specials" className="scroll-mt-24 bg-band px-4 py-24 sm:px-6 md:py-32">
-      <div className="text-center">
-        <Reveal as="p" className="eyebrow">
-          Specials
-        </Reveal>
-        <Reveal as="h2" delay={80} className="display mt-5 text-[clamp(2.4rem,4.8vw,4rem)]">
-          Quality homes at special pricing
-        </Reveal>
-        <Reveal as="p" delay={120} className="mt-4 text-lg text-muted">
-          Available for a limited time. Call for current specials.
-        </Reveal>
-      </div>
+    <section id="specials" className="scroll-mt-32 bg-white">
+      <div className="mx-auto max-w-[1280px] px-4 py-14 sm:px-6 md:py-20 lg:px-8">
+        <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <div>
+            <p className="eyebrow">Specials</p>
+            <h2 className="mt-2 text-4xl md:text-6xl">Marked down on our lot</h2>
+            <p className="mt-3 max-w-xl text-lg text-muted">Available for a limited time. Call for current specials.</p>
+          </div>
+          <Link href="/specials" className="btn btn-ink group self-start px-5 py-2.5 md:self-auto">
+            See all specials
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </Link>
+        </div>
 
-      <div className="mx-auto mt-14 grid max-w-[880px] gap-6 sm:grid-cols-2">
-        {clearance.map((h, i) => (
-          <Reveal key={h.slug} delay={200 + i * 120}>
-            <HomeCard home={h} sizes="(min-width: 640px) 430px, 100vw" />
-            <p className="sr-only">
-              {h.name}: {specs(h)}, marked down {usd(h.markdown!)}
-            </p>
-          </Reveal>
-        ))}
+        <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:max-w-[880px]">
+          {clearance.map((h) => (
+            <li key={h.slug}>
+              <HomeCard home={h} sizes="(min-width: 640px) 430px, 100vw" />
+              <p className="sr-only">
+                {h.name}: {specs(h)}, marked down {usd(h.markdown!)}
+              </p>
+            </li>
+          ))}
+        </ul>
       </div>
-
-      <Reveal delay={200} className="mt-10 flex justify-center">
-        <Link
-          href="/specials"
-          className="group inline-flex items-center gap-2 rounded-lg bg-night px-6 py-3.5 text-[15px] font-bold text-white transition-colors hover:bg-clay"
-        >
-          See all specials
-          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-        </Link>
-      </Reveal>
     </section>
   );
 }

@@ -72,7 +72,7 @@ export default function UpgradesPage() {
     <>
       <JsonLd data={breadcrumbSchema([{ name: "Upgrades", path: "/upgrades" }])} />
       <Nav />
-      <main>
+      <main id="main">
         <PageHeader
           eyebrow="Unmatched upgrades"
           title="Premium features and upgrades"

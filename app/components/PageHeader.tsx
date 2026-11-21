@@ -1,7 +1,7 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
 
-/** Dark title band that opens every inner page, with an optional photo fading in on the right. */
+/** Title band that opens every inner page: a darkened photo behind a condensed headline. */
 export default function PageHeader({
   eyebrow,
   title,
@@ -16,22 +16,18 @@ export default function PageHeader({
   children?: ReactNode;
 }) {
   return (
-    <section id="top" className="night-surface relative overflow-hidden text-white">
-      {image && (
-        <div className="absolute inset-y-0 right-0 hidden w-[55%] md:block">
-          <Image src={image} alt="" fill preload sizes="55vw" className="object-cover opacity-55" />
-          <div className="absolute inset-0 bg-gradient-to-r from-night via-night/60 to-night/10" />
-        </div>
-      )}
-      <div className="relative mx-auto max-w-[1328px] px-4 pt-36 pb-16 sm:px-6 md:pt-44 md:pb-20">
-        <p className="eyebrow hero-in text-[#ff6b70]">{eyebrow}</p>
-        <h1 className="display hero-in mt-5 max-w-3xl text-[clamp(2.7rem,6vw,5rem)] [animation-delay:80ms]">{title}</h1>
-        {lead && (
-          <p className="hero-in mt-5 max-w-xl text-lg leading-relaxed text-white/75 [animation-delay:160ms]">{lead}</p>
-        )}
-        {children && <div className="hero-in mt-8 [animation-delay:240ms]">{children}</div>}
+    <section id="top" className="relative isolate overflow-hidden bg-ink text-white">
+      <div className="absolute inset-0 -z-10">
+        <Image src={image ?? "/hero.jpg"} alt="" fill preload sizes="100vw" className="object-cover opacity-40" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(20,23,26,0.95)_0%,rgba(20,23,26,0.75)_55%,rgba(20,23,26,0.45)_100%)]" />
       </div>
-      <div className="h-1 bg-clay" />
+      <div className="mx-auto max-w-[1280px] px-4 py-14 sm:px-6 md:py-20 lg:px-8">
+        <p className="eyebrow text-[#ff4d55]">{eyebrow}</p>
+        <h1 className="mt-3 max-w-4xl text-[2.6rem] sm:text-6xl lg:text-7xl">{title}</h1>
+        {lead && <p className="mt-5 max-w-2xl text-lg leading-relaxed text-white/85">{lead}</p>}
+        {children && <div className="mt-8">{children}</div>}
+      </div>
+      <div className="h-1.5 bg-clay" />
     </section>
   );
 }

@@ -14,11 +14,20 @@ const buyerTypes = [
 
 const budgets = ["Under $60k", "$60k – $100k", "$100k – $150k", "$150k – $200k", "$200k+"];
 
-const field =
-  "h-14 w-full rounded-lg border border-white/25 bg-white/[0.07] px-5 text-[16px] text-white placeholder:text-white/65 outline-none transition-colors focus:border-white/80 focus:bg-white/15";
+const fields = {
+  dark: "h-13 w-full border-0 border-b-2 border-white/25 bg-white/[0.07] px-4 text-[16px] text-white placeholder:text-white/60 outline-none transition-colors focus:border-clay focus:bg-white/10",
+  light:
+    "h-13 w-full border-0 border-b-2 border-line-strong bg-band px-4 text-[16px] text-ink placeholder:text-muted outline-none transition-colors focus:border-clay focus:bg-white",
+};
 
-/** Lead form for the closing section; posts to /api/quote. */
-export default function QuoteForm() {
+/**
+ * Lead form; posts to /api/quote, which routes the lead to GHL.
+ * `tone` only changes the colors: dark for the hero card, light for the contact band.
+ */
+export default function QuoteForm({ tone = "dark" }: { tone?: "dark" | "light" }) {
+  const field = fields[tone];
+  const dark = tone === "dark";
+  const icon = dark ? "text-white/70" : "text-muted";
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
@@ -38,12 +47,14 @@ export default function QuoteForm() {
 
   if (status === "sent") {
     return (
-      <div className="flex min-h-[420px] flex-col items-center justify-center text-center text-white">
+      <div
+        className={`flex min-h-[360px] flex-col items-center justify-center text-center ${dark ? "text-white" : "text-ink"}`}
+      >
         <span className="flex h-14 w-14 items-center justify-center rounded-full bg-clay">
           <Check className="h-7 w-7" />
         </span>
         <p className="display mt-6 text-3xl">Thanks, we&rsquo;ll be in touch!</p>
-        <p className="mt-3 max-w-xs text-white/75">
+        <p className={`mt-3 max-w-xs ${dark ? "text-white/75" : "text-muted"}`}>
           Our team will reach out shortly. Need us sooner? Call{" "}
           <a href={site.phoneHref} className="underline underline-offset-4">
             {site.phone}
@@ -55,7 +66,7 @@ export default function QuoteForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="space-y-4">
+    <form onSubmit={onSubmit} className="space-y-3.5">
       <input name="name" required autoComplete="name" placeholder="Your Name *" aria-label="Your name" className={field} />
       <input
         name="email"
@@ -86,9 +97,9 @@ export default function QuoteForm() {
             </option>
           ))}
         </select>
-        <ChevronDown className="pointer-events-none absolute top-1/2 right-5 h-4 w-4 -translate-y-1/2 text-white/80" />
+        <ChevronDown className={`pointer-events-none absolute top-1/2 right-4 h-4 w-4 -translate-y-1/2 ${icon}`} />
       </div>
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid gap-3.5 sm:grid-cols-2">
         <div className="relative">
           <select name="budget" defaultValue="" aria-label="Budget" className={`${field} appearance-none pr-12`}>
             <option value="">Budget</option>
@@ -98,23 +109,23 @@ export default function QuoteForm() {
               </option>
             ))}
           </select>
-          <ChevronDown className="pointer-events-none absolute top-1/2 right-5 h-4 w-4 -translate-y-1/2 text-white/80" />
+          <ChevronDown className={`pointer-events-none absolute top-1/2 right-4 h-4 w-4 -translate-y-1/2 ${icon}`} />
         </div>
         <div className="relative">
-          <PinIcon className="pointer-events-none absolute top-1/2 left-5 h-5 w-5 -translate-y-1/2 text-white/65" />
-          <input name="location" placeholder="Location" aria-label="Location" className={`${field} pl-12`} />
+          <PinIcon className={`pointer-events-none absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 ${icon}`} />
+          <input name="location" placeholder="Location" aria-label="Location" className={`${field} pl-11`} />
         </div>
       </div>
       <button
         type="submit"
         disabled={status === "sending"}
-        className="flex h-14 w-full items-center justify-center gap-2.5 rounded-lg bg-clay text-[17px] font-bold text-white shadow-[0_12px_30px_-10px_rgba(192,31,38,0.5)] transition-colors hover:bg-clay-dark disabled:opacity-70"
+        className="btn btn-red h-14 w-full text-[18px] disabled:opacity-70"
       >
         <SendIcon className="h-5 w-5" />
         {status === "sending" ? "Sending…" : "Get Your Free Quote"}
       </button>
       {status === "error" && (
-        <p role="alert" className="text-center text-sm text-white/85">
+        <p role="alert" className={`text-center text-sm ${dark ? "text-white/85" : "text-clay"}`}>
           Something went wrong. Please try again or call us at{" "}
           <a href={site.phoneHref} className="underline underline-offset-4">
             {site.phone}
