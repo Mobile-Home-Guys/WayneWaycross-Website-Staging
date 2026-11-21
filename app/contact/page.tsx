@@ -1,6 +1,7 @@
 import { CallToAction, Footer } from "../components/Closing";
 import JsonLd, { breadcrumbSchema } from "../components/JsonLd";
 import Nav from "../components/Nav";
+import PageHeader from "../components/PageHeader";
 import { pageMetadata } from "../lib/seo";
 import { site } from "../lib/site";
 
@@ -32,17 +33,20 @@ export default function ContactPage() {
       <JsonLd data={breadcrumbSchema([{ name: "Contact", path: "/contact" }])} />
       <Nav />
       <main>
-        <section id="top" className="bg-band px-4 pt-40 pb-16 text-center sm:px-6">
-          <p className="text-sm font-medium tracking-wide text-clay uppercase">Contact us</p>
-          <h1 className="display hero-in mt-4 text-[clamp(3rem,7vw,5.5rem)]">Local experts you can trust</h1>
-          <p className="hero-in mx-auto mt-5 max-w-xl text-lg text-muted [animation-delay:150ms]">
-            Our team is here to make your home-buying experience clear, comfortable, and personalized, from your first
-            question to the day your home is delivered and set.
-          </p>
-        </section>
+        <PageHeader
+          eyebrow="Contact us"
+          title="Local experts you can trust"
+          image="/homes/heritage/0.jpg"
+          lead={
+            <>
+          Our team is here to make your home-buying experience clear, comfortable, and personalized, from your first
+          question to the day your home is delivered and set.
+            </>
+          }
+        />
 
         <section className="px-4 py-20 sm:px-6">
-          <div className="mx-auto grid max-w-[1200px] gap-10 lg:grid-cols-2">
+          <div className="mx-auto grid max-w-[1280px] gap-10 lg:grid-cols-2">
             <div>
               <h2 className="display text-[clamp(2.2rem,4vw,3rem)]">Visit us</h2>
               <address className="mt-6 space-y-4 text-lg not-italic text-muted">
@@ -66,7 +70,7 @@ export default function ContactPage() {
                 </dl>
               </address>
             </div>
-            <div className="aspect-[4/3] overflow-hidden rounded-[28px] border border-line bg-band">
+            <div className="aspect-[4/3] overflow-hidden rounded-2xl border border-line bg-band">
               <iframe
                 src={mapSrc}
                 title={`Map to ${site.fullName}`}
@@ -79,7 +83,7 @@ export default function ContactPage() {
         </section>
 
         <section className="bg-band px-4 py-20 sm:px-6">
-          <div className="mx-auto max-w-[1200px]">
+          <div className="mx-auto max-w-[1280px]">
             <h2 className="display text-[clamp(2.2rem,4vw,3rem)]">Meet the team</h2>
             <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
               {team.map((m) => (

@@ -275,7 +275,7 @@ export default function HomeDesigner({
     <div className="grid gap-8 lg:grid-cols-[1.55fr_1fr] lg:items-start">
       {/* The photo */}
       <div className="lg:sticky lg:top-28">
-        <div className="relative overflow-hidden rounded-[28px] border border-line bg-band">
+        <div className="relative overflow-hidden rounded-2xl border border-line bg-band">
           <canvas
             ref={canvas}
             role="img"
@@ -308,8 +308,8 @@ export default function HomeDesigner({
                   type="button"
                   onClick={() => setPhotoKey(k)}
                   aria-pressed={k === photoKey}
-                  className={`rounded-full border px-4 py-1.5 text-sm font-medium transition-colors ${
-                    k === photoKey ? "border-clay bg-clay text-white" : "border-line bg-card text-ink hover:border-clay/40"
+                  className={`rounded-lg border px-4 py-1.5 text-sm font-bold transition-colors ${
+                    k === photoKey ? "border-night bg-night text-white" : "border-line bg-card text-ink hover:border-clay/40"
                   }`}
                 >
                   {photos[k].caption}
@@ -322,7 +322,7 @@ export default function HomeDesigner({
       </div>
 
       {/* The step */}
-      <div className="rounded-[28px] border border-line bg-card p-6 sm:p-8">
+      <div className="rounded-2xl border border-line bg-white p-6 shadow-[0_30px_60px_-40px_rgba(13,21,32,0.45)] sm:p-8">
         <div className="flex gap-1.5" aria-hidden>
           {[...groups, null].map((g, i) => (
             <span key={g?.material ?? "review"} className={`h-1.5 flex-1 rounded-full ${i <= step ? "bg-clay" : "bg-line"}`} />
@@ -420,7 +420,7 @@ export default function HomeDesigner({
               <button
                 type="submit"
                 disabled={status === "sending"}
-                className="flex h-13 w-full items-center justify-center gap-2.5 rounded-full bg-clay font-medium text-white transition-colors hover:bg-clay-dark disabled:opacity-70"
+                className="flex h-13 w-full items-center justify-center gap-2.5 rounded-lg bg-clay font-bold text-white transition-colors hover:bg-clay-dark disabled:opacity-70"
               >
                 <SendIcon className="h-5 w-5" />
                 {status === "sending" ? "Sending…" : "Send my design"}
@@ -459,7 +459,7 @@ export default function HomeDesigner({
             type="button"
             onClick={() => setStep((s) => Math.max(0, s - 1))}
             disabled={step === 0}
-            className="rounded-full border border-line bg-white px-6 py-3 font-medium text-ink transition-colors hover:border-clay/40 disabled:invisible"
+            className="rounded-lg border border-ink/15 bg-white px-6 py-3 font-bold text-ink transition-colors hover:border-clay/40 disabled:invisible"
           >
             Back
           </button>
@@ -467,7 +467,7 @@ export default function HomeDesigner({
             <button
               type="button"
               onClick={() => setStep((s) => s + 1)}
-              className="group inline-flex items-center gap-2 rounded-full bg-clay px-7 py-3 font-medium text-white transition-colors hover:bg-clay-dark"
+              className="group inline-flex items-center gap-2 rounded-lg bg-clay px-7 py-3 font-bold text-white transition-colors hover:bg-clay-dark"
             >
               {step === groups.length - 1 ? "See my design" : "Next"}
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -475,7 +475,7 @@ export default function HomeDesigner({
           )}
         </div>
         <p className="mt-6 text-xs leading-relaxed text-muted">
-          Colors are from Live Oak Homes&rsquo; {series} Series d&eacute;cor board and are shown on real photos of this
+          Colors are from Live Oak Homes&rsquo; {series}{" "}Series d&eacute;cor board and are shown on real photos of this
           model. Screens and photos vary a little from the real finish; see samples at our sales center.
         </p>
       </div>

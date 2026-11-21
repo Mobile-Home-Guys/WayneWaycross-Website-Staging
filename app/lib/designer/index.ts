@@ -1,5 +1,5 @@
+import { DESIGNER_SERIES, type LiveOakSeries } from "./series";
 import decor from "./liveoak-decor.json";
-import { designableRooms } from "./designable.generated";
 import { designerRegions } from "./regions.generated";
 import type { DesignerPhotos, Finish, Material, MaterialGroup } from "./types";
 
@@ -23,28 +23,7 @@ export type { DesignerPhotos, Finish, Material, MaterialGroup } from "./types";
  *
  * No prices anywhere: the boards carry none, and none are shown.
  */
-export type LiveOakSeries = "Extreme" | "XT" | "Oak";
-
-export const DESIGNER_SERIES: Record<string, LiveOakSeries> = {
-  tremor: "Extreme",
-  laramie: "Extreme",
-  silverado: "Extreme",
-  "high-country": "Extreme",
-  maverick: "Extreme",
-  titan: "Extreme",
-  raven: "XT",
-  dolly: "XT",
-  cobblestone: "XT",
-  charger: "XT",
-  dogwood: "XT",
-  highlander: "XT",
-  "quail-ridge": "XT",
-  defender: "Oak",
-  horizon: "Oak",
-  "georgia-giant": "Oak",
-  ace: "Oak",
-  slugger: "Oak",
-};
+export { DESIGNER_SERIES, hasDesigner, type LiveOakSeries } from "./series";
 
 type BoardFinish = {
   id: string;
@@ -102,8 +81,6 @@ export function designerFor(slug: string): DesignerPhotos | undefined {
 /** Homes with a designer. */
 export const designerSlugs = (): string[] => Object.keys(designerRegions).filter((s) => DESIGNER_SERIES[s]);
 
-/** True when a home has a designer, without loading its masks. */
-export const hasDesigner = (slug: string) => !!DESIGNER_SERIES[slug] && !!designableRooms[slug];
 
 /**
  * The surfaces a home's photographs can show, each with the finishes its

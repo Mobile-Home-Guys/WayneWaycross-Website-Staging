@@ -2,6 +2,7 @@ import { CallToAction, Footer } from "../components/Closing";
 import { Check } from "../components/Icons";
 import JsonLd, { breadcrumbSchema } from "../components/JsonLd";
 import Nav from "../components/Nav";
+import PageHeader from "../components/PageHeader";
 import Reveal from "../components/Reveal";
 import { pageMetadata } from "../lib/seo";
 import { site } from "../lib/site";
@@ -72,17 +73,20 @@ export default function UpgradesPage() {
       <JsonLd data={breadcrumbSchema([{ name: "Upgrades", path: "/upgrades" }])} />
       <Nav />
       <main>
-        <section id="top" className="bg-band px-4 pt-40 pb-16 text-center sm:px-6">
-          <p className="text-sm font-medium tracking-wide text-clay uppercase">Unmatched upgrades</p>
-          <h1 className="display hero-in mt-4 text-[clamp(3rem,7vw,5.5rem)]">Premium features and upgrades</h1>
-          <p className="hero-in mx-auto mt-5 max-w-xl text-lg text-muted [animation-delay:150ms]">
-            We offer a wide range of premium upgrades so you can make your home uniquely yours. Choose features to
-            personalize your comfort and style in every corner of your home.
-          </p>
-        </section>
+        <PageHeader
+          eyebrow="Unmatched upgrades"
+          title="Premium features and upgrades"
+          image="/homes/veranda/0.jpg"
+          lead={
+            <>
+          We offer a wide range of premium upgrades so you can make your home uniquely yours. Choose features to
+          personalize your comfort and style in every corner of your home.
+            </>
+          }
+        />
 
         <section className="px-4 py-20 sm:px-6">
-          <div className="mx-auto grid max-w-[1200px] gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mx-auto grid max-w-[1280px] gap-6 md:grid-cols-2 lg:grid-cols-3">
             {groups.map((g, i) => (
               <Reveal key={g.title} delay={i * 80} className="rounded-3xl border border-line bg-card p-8">
                 <h2 className="display text-[28px]">{g.title}</h2>

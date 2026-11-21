@@ -3,6 +3,7 @@ import JsonLd, { breadcrumbSchema } from "../components/JsonLd";
 import { CallToAction, Footer } from "../components/Closing";
 import { Check, HouseIcon, KeyIcon, ShieldIcon, TreeIcon } from "../components/Icons";
 import Nav from "../components/Nav";
+import PageHeader from "../components/PageHeader";
 import OurPromise from "../components/OurPromise";
 import Reveal from "../components/Reveal";
 import Reviews from "../components/Reviews";
@@ -58,17 +59,20 @@ export default function AboutPage() {
       <JsonLd data={breadcrumbSchema([{ name: "About Us", path: "/about" }])} />
       <Nav />
       <main>
-        <section id="top" className="bg-band px-4 pt-40 pb-16 text-center sm:px-6">
-          <p className="text-sm font-medium tracking-wide text-clay uppercase">About us</p>
-          <h1 className="display hero-in mt-4 text-[clamp(3rem,7vw,5.5rem)]">Homes built right here in Waycross</h1>
-          <p className="hero-in mx-auto mt-5 max-w-xl text-lg text-muted [animation-delay:150ms]">
-            Unmatched selection, value and price. Our goal is 100% customer satisfaction.
-          </p>
-        </section>
+        <PageHeader
+          eyebrow="About us"
+          title="Homes built right here in Waycross"
+          image="/homes/dolly/0.jpg"
+          lead={
+            <>
+          Unmatched selection, value and price. Our goal is 100% customer satisfaction.
+            </>
+          }
+        />
 
         <section className="px-4 py-24 sm:px-6">
-          <div className="mx-auto grid max-w-[1200px] items-center gap-14 lg:grid-cols-2">
-            <Reveal variant="reveal-window" className="relative aspect-[4/3] overflow-hidden rounded-[28px]">
+          <div className="mx-auto grid max-w-[1280px] items-center gap-14 lg:grid-cols-2">
+            <Reveal variant="reveal-window" className="relative aspect-[4/3] overflow-hidden rounded-2xl">
               <Image
                 src="/homes/arlington/0.jpg"
                 alt="Inside a Live Oak home at Wayne Frier Home Center of Waycross"
@@ -103,7 +107,7 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <Reveal as="dl" delay={150} className="mx-auto mt-20 grid max-w-[1200px] gap-5 sm:grid-cols-3">
+          <Reveal as="dl" delay={150} className="mx-auto mt-20 grid max-w-[1280px] gap-5 sm:grid-cols-3">
             {stats.map((s) => (
               <div key={s.label} className="rounded-3xl border border-line bg-card px-6 py-8 text-center">
                 <dt className="sr-only">{s.label}</dt>
@@ -115,7 +119,7 @@ export default function AboutPage() {
         </section>
 
         <section className="bg-band px-4 py-24 sm:px-6">
-          <div className="mx-auto max-w-[1200px]">
+          <div className="mx-auto max-w-[1280px]">
             <Reveal as="h2" className="display text-center text-[clamp(2.4rem,4.5vw,3.5rem)]">
               What we offer
             </Reveal>
