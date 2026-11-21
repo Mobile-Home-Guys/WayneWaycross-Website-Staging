@@ -32,7 +32,7 @@ export default function ContactPage() {
     <>
       <JsonLd data={breadcrumbSchema([{ name: "Contact", path: "/contact" }])} />
       <Nav />
-      <main>
+      <main id="main">
         <PageHeader
           eyebrow="Contact us"
           title="Local experts you can trust"

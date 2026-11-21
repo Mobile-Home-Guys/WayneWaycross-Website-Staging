@@ -58,7 +58,7 @@ export default function AboutPage() {
     <>
       <JsonLd data={breadcrumbSchema([{ name: "About Us", path: "/about" }])} />
       <Nav />
-      <main>
+      <main id="main">
         <PageHeader
           eyebrow="About us"
           title="Homes built right here in Waycross"

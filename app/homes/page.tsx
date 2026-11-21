@@ -18,7 +18,7 @@ export default function HomesPage() {
     <>
       <JsonLd data={breadcrumbSchema([{ name: "Homes", path: "/homes" }])} />
       <Nav />
-      <main>
+      <main id="main">
         <PageHeader
           eyebrow="Our homes"
           title="Find your floor plan"

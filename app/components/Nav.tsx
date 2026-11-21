@@ -4,167 +4,173 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { site } from "../lib/site";
-import { Logo, PhoneIcon, PinIcon } from "./Icons";
+import {
+  Cross,
+  HouseIcon,
+  KeyIcon,
+  Logo,
+  MenuIcon,
+  PhoneIcon,
+  PinIcon,
+  RollerIcon,
+  ShieldIcon,
+  StarIcon,
+} from "./Icons";
 
 const links = [
-  { href: "/homes", label: "Homes" },
-  { href: "/#design", label: "Design Online" },
-  { href: "/specials", label: "Specials" },
-  { href: "/upgrades", label: "Upgrades" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
+  { href: "/homes", label: "Homes", Icon: HouseIcon },
+  { href: "/#design", label: "Design online", Icon: RollerIcon },
+  { href: "/specials", label: "Specials", Icon: StarIcon },
+  { href: "/upgrades", label: "Upgrades", Icon: KeyIcon },
+  { href: "/about", label: "About", Icon: ShieldIcon },
+  { href: "/contact", label: "Contact", Icon: PinIcon },
 ];
 
-const openHours = site.hoursText
-  .filter(([, t]) => t !== "Closed")
-  .map(([d, t]) => `${d} ${t}`)
-  .join(" · ");
+/** The red phone strip above the header: the number and what it's for, nothing else. */
+function CallBar() {
+  return (
+    <div className="bg-clay py-2 text-center text-sm font-medium text-white">
+      <a
+        href={site.phoneHref}
+        className="inline-flex items-center justify-center gap-2 px-4 transition-opacity hover:opacity-90"
+      >
+        <PhoneIcon className="h-4 w-4 shrink-0" />
+        <span>Call now: {site.phone}</span>
+        <span className="hidden sm:inline">· Exclusive Live Oak Homes retailer in Waycross</span>
+      </a>
+    </div>
+  );
+}
 
 /**
- * Every page opens on a dark band, so the bar starts transparent with white links and
- * turns into a solid white bar once the page is scrolled.
+ * Phone strip, then a white bar that sticks to the top as the page scrolls under it.
+ * In flow rather than fixed, so no page has to leave room for it.
  */
 export default function Nav() {
-  const [solid, setSolid] = useState(false);
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
-  useEffect(() => {
-    const onScroll = () => setSolid(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  const [lastPath, setLastPath] = useState(pathname);
+  if (lastPath !== pathname) {
+    setLastPath(pathname);
+    if (open) setOpen(false);
+  }
 
-  const light = solid || open;
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   const { street, city, region } = site.address;
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
-      {/* Utility bar: who we are and where to find us */}
+    <>
+      <a
+        href="#main"
+        className="sr-only bg-ink px-4 py-2 text-white focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60]"
+      >
+        Skip to content
+      </a>
+
+      <header className="sticky top-0 z-50">
+        <CallBar />
+        <div className="border-b border-line bg-white">
+          <div className="mx-auto flex min-h-[var(--header-h)] max-w-[1280px] items-center gap-4 px-4 py-2 sm:px-6 lg:px-8">
+            <Link href="/" aria-label={`${site.fullName} home`} className="shrink-0 transition-opacity hover:opacity-80">
+              <Logo className="h-11 sm:h-12" />
+            </Link>
+
+            <nav aria-label="Primary" className="ml-auto hidden items-center gap-1 lg:flex">
+              {links.map(({ href, label, Icon }) => {
+                const active = href !== "/#design" && (pathname === href || pathname.startsWith(`${href}/`));
+                return (
+                  <Link
+                    key={href}
+                    href={href}
+                    aria-current={active ? "page" : undefined}
+                    className={`flex items-center gap-2 px-3 py-2 text-[15px] font-semibold whitespace-nowrap transition-colors xl:px-4 ${
+                      active ? "bg-blush text-clay" : "text-ink hover:bg-band"
+                    }`}
+                  >
+                    <Icon className="h-4 w-4 shrink-0" />
+                    {label}
+                  </Link>
+                );
+              })}
+            </nav>
+
+            <div className="ml-auto flex items-center gap-2 lg:ml-2">
+              <a
+                href={site.phoneHref}
+                aria-label={`Call ${site.name} at ${site.phone}`}
+                className="btn btn-outline hidden px-4 py-2.5 text-[15px] sm:inline-flex"
+              >
+                <PhoneIcon className="h-4 w-4 shrink-0" />
+                {site.phone}
+              </a>
+              <button
+                type="button"
+                onClick={() => setOpen((v) => !v)}
+                aria-expanded={open}
+                aria-controls="mobile-nav"
+                aria-label={open ? "Close menu" : "Open menu"}
+                className="inline-flex h-11 w-11 items-center justify-center text-ink transition-colors hover:bg-band lg:hidden"
+              >
+                {open ? <Cross className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile drawer */}
       <div
-        className={`hidden overflow-hidden bg-night text-[13px] text-white/75 transition-[max-height,opacity] duration-500 md:block ${
-          solid ? "max-h-0 opacity-0" : "max-h-10 opacity-100"
+        id="mobile-nav"
+        aria-hidden={!open}
+        className={`fixed inset-0 z-40 bg-white transition-[opacity,visibility] duration-300 lg:hidden ${
+          open ? "visible opacity-100" : "invisible opacity-0"
         }`}
       >
-        <div className="mx-auto flex h-9 max-w-[1328px] items-center justify-between px-6">
-          <p className="flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-clay" />
-            Exclusive Live Oak Homes retailer in {city}, {region}
-          </p>
-          <p className="flex items-center gap-6">
-            <a
-              href={site.mapUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 hover:text-white"
+        <nav aria-label="Mobile" className="flex h-full flex-col overflow-y-auto px-5 pt-36 pb-10">
+          {links.map(({ href, label, Icon }) => (
+            <Link
+              key={href}
+              href={href}
+              tabIndex={open ? 0 : -1}
+              onClick={() => setOpen(false)}
+              className="flex items-center gap-3 border-b border-line py-4 text-lg font-semibold text-ink"
             >
-              <PinIcon className="h-3.5 w-3.5" />
-              {street}, {city}
-            </a>
-            <span className="hidden lg:inline">{openHours}</span>
-          </p>
-        </div>
+              <Icon className="h-5 w-5 shrink-0 text-clay" />
+              {label}
+            </Link>
+          ))}
+          <a
+            href={site.mapUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            tabIndex={open ? 0 : -1}
+            className="mt-6 flex items-start gap-3 text-muted"
+          >
+            <PinIcon className="mt-0.5 h-5 w-5 shrink-0 text-clay" />
+            {street}, {city}, {region}
+          </a>
+          <a href={site.phoneHref} tabIndex={open ? 0 : -1} className="btn btn-red mt-8 w-full px-6 py-4 text-lg">
+            <PhoneIcon className="h-5 w-5" />
+            Call {site.phone}
+          </a>
+        </nav>
       </div>
 
-      <div
-        className={`border-b transition-colors duration-500 ${
-          light
-            ? "border-line bg-white/95 shadow-[0_10px_30px_-20px_rgba(13,21,32,0.45)] backdrop-blur-xl"
-            : "border-white/10 bg-night/40 backdrop-blur-sm"
-        }`}
+      {/* Floating call button on phones */}
+      <a
+        href={site.phoneHref}
+        aria-label={`Call ${site.phone}`}
+        className="fixed right-4 bottom-4 z-30 flex h-14 w-14 items-center justify-center bg-clay text-white shadow-[0_10px_25px_-5px_rgba(192,31,38,0.5)] transition-colors hover:bg-ink md:hidden"
       >
-        <nav className="mx-auto flex h-[72px] max-w-[1328px] items-center justify-between gap-4 px-4 sm:px-6">
-          <Link
-            href="/"
-            aria-label={`${site.fullName} home`}
-            className="rounded-xl bg-white px-2.5 py-1.5 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.5)]"
-          >
-            <Logo className="h-9 sm:h-10" />
-          </Link>
-          <ul
-            className={`hidden items-center gap-1 text-[13px] font-bold tracking-[0.08em] uppercase lg:flex ${
-              light ? "text-ink" : "text-white"
-            }`}
-          >
-            {links.map((l) => {
-              const active = !l.href.includes("#") && !!pathname?.startsWith(l.href);
-              return (
-                <li key={l.href}>
-                  <Link
-                    href={l.href}
-                    aria-current={active ? "page" : undefined}
-                    className={`relative block px-3.5 py-2 transition-colors after:absolute after:inset-x-3.5 after:bottom-0 after:h-0.5 after:origin-left after:bg-clay after:transition-transform after:duration-300 ${
-                      active ? "after:scale-x-100" : "after:scale-x-0 hover:after:scale-x-100"
-                    } ${light ? "hover:text-clay" : "hover:text-white/80"}`}
-                  >
-                    {l.label}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-          <div className="flex items-center gap-2">
-            <a
-              href={site.phoneHref}
-              className="inline-flex items-center gap-2 rounded-lg bg-clay px-4 py-2.5 text-sm font-bold text-white shadow-[0_10px_24px_-10px_rgba(192,31,38,0.7)] transition-colors hover:bg-clay-dark"
-            >
-              <PhoneIcon className="h-4 w-4" />
-              <span className="sm:hidden">Call</span>
-              <span className="hidden sm:inline">{site.phone}</span>
-            </a>
-            <button
-              type="button"
-              onClick={() => setOpen((o) => !o)}
-              aria-expanded={open}
-              aria-controls="mobile-menu"
-              aria-label={open ? "Close menu" : "Open menu"}
-              className={`grid h-10 w-10 place-items-center rounded-lg border transition-colors lg:hidden ${
-                light ? "border-line bg-white text-ink" : "border-white/25 bg-white/10 text-white"
-              }`}
-            >
-              <svg
-                viewBox="0 0 24 24"
-                className="h-5 w-5"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2}
-                strokeLinecap="round"
-                aria-hidden="true"
-              >
-                {open ? <path d="M6 6l12 12M18 6 6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
-              </svg>
-            </button>
-          </div>
-        </nav>
-        {/* Links hidden in the bar below lg; always in the DOM so crawlers see them */}
-        <ul
-          id="mobile-menu"
-          className={`flex-col border-t border-line bg-white px-4 pt-1 pb-5 text-[15px] font-bold text-ink lg:hidden ${
-            open ? "flex" : "hidden"
-          }`}
-        >
-          {links.map((l) => (
-            <li key={l.href}>
-              <Link
-                href={l.href}
-                onClick={() => setOpen(false)}
-                className="flex items-center justify-between border-b border-line py-3.5 tracking-wide uppercase"
-              >
-                {l.label}
-                <span aria-hidden="true" className="text-clay">
-                  →
-                </span>
-              </Link>
-            </li>
-          ))}
-          <li className="pt-4 text-sm font-normal text-muted">
-            {street}, {city}, {region}
-            <br />
-            {openHours}
-          </li>
-        </ul>
-      </div>
-    </header>
+        <PhoneIcon className="h-6 w-6" />
+      </a>
+    </>
   );
 }

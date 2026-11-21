@@ -1,19 +1,20 @@
 import type { Metadata } from "next";
-import { Archivo, Inter } from "next/font/google";
+import { Barlow, Barlow_Condensed } from "next/font/google";
 import JsonLd, { businessSchema } from "./components/JsonLd";
 import { ogImage } from "./lib/seo";
 import { site } from "./lib/site";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+const barlow = Barlow({
+  variable: "--font-barlow",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
-const archivo = Archivo({
-  variable: "--font-archivo",
+const condensed = Barlow_Condensed({
+  variable: "--font-condensed",
   subsets: ["latin"],
-  weight: "variable",
+  weight: ["500", "600", "700"],
 });
 
 const googleVerification = process.env.GOOGLE_SITE_VERIFICATION;
@@ -44,7 +45,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${archivo.variable} antialiased`}
+      className={`${barlow.variable} ${condensed.variable} antialiased`}
     >
       <body className="min-h-full">
         <JsonLd data={businessSchema} />

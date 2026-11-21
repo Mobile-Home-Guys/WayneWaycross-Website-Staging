@@ -20,11 +20,11 @@ export default function Home() {
   return (
     <>
       <Nav />
-      <main>
+      <main id="main">
         <Hero />
-        <Features />
-        <DesignShowcase />
         <OnTheLot />
+        <DesignShowcase />
+        <Features />
         <Reviews />
         <Specials />
         <CallToAction />
