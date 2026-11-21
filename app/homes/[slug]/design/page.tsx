@@ -50,17 +50,31 @@ export default async function DesignPage({ params }: Props) {
         ])}
       />
       <Nav />
-      <main className="px-4 pt-32 pb-20 sm:px-6">
-        <div className="mx-auto max-w-[1200px]">
-          <Link href={`/homes/${home.slug}`} className="text-sm font-medium text-clay hover:text-clay-dark">
-            ← Back to the {home.name}
-          </Link>
-          <h1 className="display mt-4 text-[clamp(2.8rem,5.5vw,4.4rem)]">Design your {home.name}</h1>
-          <p className="mt-3 max-w-2xl leading-relaxed text-muted">
-            Pick your colors on real photos of this home, one at a time. When you&rsquo;re done, send us your design
-            and we&rsquo;ll call you to talk it through.
-          </p>
-          <div className="mt-10">
+      <main>
+        <section id="top" className="night-surface relative overflow-hidden text-white">
+          <div className="relative mx-auto max-w-[1328px] px-4 pt-32 pb-12 sm:px-6 md:pt-40">
+            <nav aria-label="Breadcrumb" className="text-sm text-white/60">
+              <Link href="/homes" className="hover:text-white">
+                Homes
+              </Link>
+              <span className="mx-2">/</span>
+              <Link href={`/homes/${home.slug}`} className="hover:text-white">
+                The {home.name}
+              </Link>
+              <span className="mx-2">/</span>
+              <span className="text-white">Design</span>
+            </nav>
+            <p className="eyebrow mt-6 text-[#ff6b70]">Live Oak {DESIGNER_SERIES[slug]} Series · Design online</p>
+            <h1 className="display mt-4 text-[clamp(2.8rem,6vw,5rem)]">Design your {home.name}</h1>
+            <p className="mt-4 max-w-2xl text-lg leading-relaxed text-white/75">
+              Pick your colors on real photos of this home, one at a time. When you&rsquo;re done, send us your design
+              and we&rsquo;ll call you to talk it through.
+            </p>
+          </div>
+          <div className="h-1 bg-clay" />
+        </section>
+        <section className="px-4 py-12 sm:px-6 md:py-16">
+          <div className="mx-auto max-w-[1280px]">
             <HomeDesigner
               slug={home.slug}
               name={home.name}
@@ -68,8 +82,15 @@ export default async function DesignPage({ params }: Props) {
               photos={photos}
               groups={groups}
             />
+            <p className="mt-10 text-center text-sm text-muted">
+              Questions while you design? Call us at{" "}
+              <a href={site.phoneHref} className="font-bold text-clay hover:text-clay-dark">
+                {site.phone}
+              </a>
+              .
+            </p>
           </div>
-        </div>
+        </section>
       </main>
       <Footer />
     </>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Instrument_Serif } from "next/font/google";
+import { Archivo, Inter } from "next/font/google";
 import JsonLd, { businessSchema } from "./components/JsonLd";
 import { ogImage } from "./lib/seo";
 import { site } from "./lib/site";
@@ -10,10 +10,10 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-const instrumentSerif = Instrument_Serif({
-  variable: "--font-instrument-serif",
+const archivo = Archivo({
+  variable: "--font-archivo",
   subsets: ["latin"],
-  weight: "400",
+  weight: "variable",
 });
 
 const googleVerification = process.env.GOOGLE_SITE_VERIFICATION;
@@ -44,7 +44,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${instrumentSerif.variable} antialiased`}
+      className={`${inter.variable} ${archivo.variable} antialiased`}
     >
       <body className="min-h-full">
         <JsonLd data={businessSchema} />

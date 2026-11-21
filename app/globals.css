@@ -1,20 +1,23 @@
 @import "tailwindcss";
 
-/* Red, black and white palette pulled from the Wayne Frier Home Center logo.
-   `clay` is the primary brand accent (logo red), `blush` its light tint. */
+/* Flagship palette: deep night navy + Wayne Frier logo red, with a brass accent.
+   `clay` is the primary brand accent (logo red), `blush` its light tint, `night` the dark surfaces. */
 @theme {
-  --color-cream: #faf8f5;
-  --color-band: #f1ede7;
-  --color-card: #f6f2ec;
-  --color-line: #e4ded5;
-  --color-ink: #141414;
-  --color-muted: #4a4a4a;
+  --color-cream: #faf9f7;
+  --color-band: #f2efea;
+  --color-card: #ffffff;
+  --color-line: #e2ddd5;
+  --color-ink: #111821;
+  --color-muted: #4e5560;
   --color-clay: #c01f26;
   --color-clay-dark: #9a1a1f;
-  --color-blush: #f8e1e2;
+  --color-blush: #fbe6e7;
   --color-sage: #c01f26;
-  --color-gold: #d4a94a;
-  --font-serif: var(--font-instrument-serif);
+  --color-gold: #c9a14a;
+  --color-night: #0d1520;
+  --color-night-2: #152131;
+  --color-night-3: #1e2c3f;
+  --font-display: var(--font-archivo);
   --font-sans: var(--font-inter);
 }
 
@@ -32,11 +35,44 @@ body {
   font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
 
-/* Serif display headings, tightly tracked like the reference */
-.display {
-  font-family: var(--font-instrument-serif), Georgia, serif;
-  letter-spacing: -0.02em;
-  line-height: 1.02;
+@layer components {
+  /* Heavy, tightly tracked display headings */
+  .display {
+    font-family: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.028em;
+    line-height: 1.02;
+  }
+
+  /* Small uppercase label with a red rule in front */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-clay);
+  }
+  .eyebrow::before {
+    content: "";
+    display: block;
+    width: 1.75rem;
+    height: 2px;
+    background: currentColor;
+  }
+
+  /* Dark surface with a faint red glow and fine grid, used for heroes and page headers */
+  .night-surface {
+    background-color: var(--color-night);
+    background-image:
+      radial-gradient(60% 80% at 85% 10%, rgb(192 31 38 / 0.22), transparent 60%),
+      radial-gradient(50% 60% at 0% 100%, rgb(201 161 74 / 0.1), transparent 60%),
+      linear-gradient(rgb(255 255 255 / 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+    background-size: auto, auto, 56px 56px, 56px 56px;
+  }
 }
 
 /* ---------- Scroll reveal ---------- */

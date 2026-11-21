@@ -2,6 +2,7 @@ import { CallToAction, Footer } from "../components/Closing";
 import HomeCard from "../components/HomeCard";
 import JsonLd, { breadcrumbSchema } from "../components/JsonLd";
 import Nav from "../components/Nav";
+import PageHeader from "../components/PageHeader";
 import { clearance, specs } from "../lib/homes";
 import { pageMetadata } from "../lib/seo";
 import { site, usd } from "../lib/site";
@@ -18,16 +19,19 @@ export default function SpecialsPage() {
       <JsonLd data={breadcrumbSchema([{ name: "Specials", path: "/specials" }])} />
       <Nav />
       <main>
-        <section id="top" className="bg-band px-4 pt-40 pb-16 text-center sm:px-6">
-          <p className="text-sm font-medium tracking-wide text-clay uppercase">Available for a limited time</p>
-          <h1 className="display hero-in mt-4 text-[clamp(3rem,7vw,5.5rem)]">Quality homes at special pricing</h1>
-          <p className="hero-in mx-auto mt-5 max-w-xl text-lg text-muted [animation-delay:150ms]">
-            Enjoy special pricing without compromising on craftsmanship. Call {site.phone} for current specials.
-          </p>
-        </section>
+        <PageHeader
+          eyebrow="Available for a limited time"
+          title="Quality homes at special pricing"
+          image="/homes/tundra/0.jpg"
+          lead={
+            <>
+          Enjoy special pricing without compromising on craftsmanship. Call {site.phone} for current specials.
+            </>
+          }
+        />
 
         <section className="px-4 py-20 sm:px-6">
-          <div className="mx-auto max-w-[1200px]">
+          <div className="mx-auto max-w-[1280px]">
             <h2 className="display text-[clamp(2.2rem,4vw,3rem)]">Clearance homes</h2>
             <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {clearance.map((h) => (

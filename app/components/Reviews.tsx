@@ -36,7 +36,7 @@ function ReviewCard({ review, hidden }: { review: Review; hidden?: boolean }) {
   return (
     <figure
       aria-hidden={hidden || undefined}
-      className="flex w-[300px] shrink-0 flex-col rounded-3xl border border-line bg-white p-6 shadow-[0_10px_30px_-18px_rgba(20,20,20,0.35)] sm:w-[360px]"
+      className="flex w-[300px] shrink-0 flex-col rounded-2xl border border-line border-t-[3px] border-t-clay bg-white p-6 shadow-[0_10px_30px_-18px_rgba(13,21,32,0.35)] sm:w-[360px]"
     >
       <div className="flex items-center justify-between">
         <Stars rating={review.rating} />
@@ -55,7 +55,7 @@ function ReviewCard({ review, hidden }: { review: Review; hidden?: boolean }) {
             className="h-10 w-10 rounded-full object-cover"
           />
         ) : (
-          <span className="grid h-10 w-10 place-items-center rounded-full bg-blush font-medium text-clay">
+          <span className="grid h-10 w-10 place-items-center rounded-full bg-night font-bold text-white">
             {review.author.charAt(0).toUpperCase()}
           </span>
         )}
@@ -96,16 +96,19 @@ export default async function Reviews({ id = "reviews" }: { id?: string }) {
 
   return (
     <section id={id} className="scroll-mt-24 overflow-hidden py-24 md:py-28">
-      <div className="mx-auto max-w-[1200px] px-4 text-center sm:px-6">
-        <Reveal as="p" className="text-sm font-medium tracking-wide text-clay uppercase">
+      <div className="mx-auto max-w-[1280px] px-4 text-center sm:px-6">
+        <Reveal as="p" className="eyebrow">
           Reviews
         </Reveal>
-        <Reveal as="h2" delay={100} className="display mt-4 text-[clamp(2.4rem,5vw,4rem)]">
+        <Reveal as="h2" delay={100} className="display mt-5 text-[clamp(2.4rem,4.8vw,4rem)]">
           Families love their new homes
         </Reveal>
-        <Reveal delay={200} className="mt-6 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-muted">
+        <Reveal
+          delay={200}
+          className="mt-7 inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-2 rounded-xl border border-line bg-white px-5 py-3 text-muted shadow-[0_10px_30px_-20px_rgba(13,21,32,0.4)]"
+        >
           <GoogleG className="h-5 w-5" />
-          {rating !== null && <span className="font-medium text-ink">{rating.toFixed(1)}</span>}
+          {rating !== null && <span className="display text-2xl text-ink">{rating.toFixed(1)}</span>}
           <Stars rating={rating ?? 5} />
           <span>{total ? `${total} reviews on Google` : "Real reviews from our Google listing"}</span>
         </Reveal>
@@ -122,7 +125,7 @@ export default async function Reviews({ id = "reviews" }: { id?: string }) {
           href={googleReviewsUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="group inline-flex items-center gap-2 rounded-full border border-line bg-white px-6 py-3 text-[15px] font-medium text-ink transition-colors hover:border-clay hover:text-clay"
+          className="group inline-flex items-center gap-2 rounded-lg border border-ink/15 bg-white px-6 py-3.5 text-[15px] font-bold text-ink transition-colors hover:border-clay hover:text-clay"
         >
           Read all reviews on Google
           <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -131,7 +134,7 @@ export default async function Reviews({ id = "reviews" }: { id?: string }) {
           href={googleWriteReviewUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center rounded-full bg-clay px-6 py-3 text-[15px] font-medium text-white transition-colors hover:bg-clay-dark"
+          className="inline-flex items-center rounded-lg bg-clay px-6 py-3.5 text-[15px] font-bold text-white transition-colors hover:bg-clay-dark"
         >
           Leave a review
         </a>

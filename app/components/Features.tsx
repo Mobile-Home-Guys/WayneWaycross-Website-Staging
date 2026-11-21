@@ -1,66 +1,87 @@
+import Image from "next/image";
+import Link from "next/link";
 import Reveal from "./Reveal";
-import { HouseIcon, ShieldIcon, TreeIcon } from "./Icons";
-
-const brands = ["Live Oak Homes", "Singlewide", "Doublewide", "Triplewide", "Energy Star"];
+import { ArrowRight, HouseIcon, KeyIcon, ShieldIcon, TreeIcon } from "./Icons";
 
 const features = [
   {
+    icon: TreeIcon,
+    title: "Built right here",
+    body: "Our Live Oak homes are built in the Waycross area, so you save thousands in freight and get local service and support.",
+  },
+  {
     icon: HouseIcon,
     title: "Homes for every family",
-    body: "Singlewide, doublewide and triplewide floor plans from Live Oak Homes, with customization options to fit your needs.",
+    body: "Singlewide, doublewide and triplewide floor plans, from cozy two-bedrooms to five-bedroom family homes.",
   },
   {
     icon: ShieldIcon,
-    title: "Built in Georgia",
-    body: "Built in a controlled factory environment to meet and exceed the federal HUD code, with Energy Star certified options.",
+    title: "Quality you can rely on",
+    body: "Built in a controlled factory to meet and exceed the federal HUD code, inspected by a third party, with Energy Star options.",
   },
   {
-    icon: TreeIcon,
+    icon: KeyIcon,
     title: "Delivered and set up",
-    body: "Built in Waycross, sold in Waycross. Thousands saved in freight, with local delivery and outstanding service.",
+    body: "Our team handles delivery and setup, and we ship to Florida, Georgia and South Carolina.",
   },
 ];
 
+/** Why buy from the Waycross store: the local-factory story plus four numbered reasons. */
 export default function Features() {
   return (
-    <>
-      <section className="bg-band py-14">
-        <Reveal as="p" className="text-center text-xs tracking-wide text-muted">
-          Proudly featuring
-        </Reveal>
-        <Reveal delay={120} className="mx-auto mt-4 flex max-w-3xl flex-wrap justify-center gap-x-10 gap-y-3 px-4">
-          {brands.map((b) => (
-            <span key={b} className="display text-xl text-ink/40">
-              {b}
-            </span>
-          ))}
-        </Reveal>
-      </section>
-
-      <section id="homes" className="scroll-mt-24 px-4 pt-28 pb-24 sm:px-6">
-        <div className="mx-auto max-w-[1200px] text-center">
-          <Reveal as="h2" className="display text-[clamp(2.6rem,5.5vw,4rem)]">
-            A home you can grow into
+    <section id="why" className="scroll-mt-24 px-4 py-24 sm:px-6 md:py-32">
+      <div className="mx-auto grid max-w-[1280px] gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
+        <div>
+          <Reveal as="p" className="eyebrow">
+            Why Wayne Frier of Waycross
           </Reveal>
-          <Reveal as="p" delay={120} className="mt-4 text-lg text-muted">
-            Quality homes, exceptional value, locally delivered.
+          <Reveal as="h2" delay={80} className="display mt-5 text-[clamp(2.4rem,4.6vw,3.8rem)]">
+            The homes are built here. That&rsquo;s your advantage.
+          </Reveal>
+          <Reveal as="p" delay={160} className="mt-6 max-w-lg text-lg leading-relaxed text-muted">
+            Built in Waycross and sold in Waycross. Having the manufacturing facilities nearby means real savings on
+            freight and a team that can answer every question, explain your options and help you find the right home for
+            your budget.
+          </Reveal>
+          <Reveal delay={220} className="mt-8">
+            <Link
+              href="/about"
+              className="group inline-flex items-center gap-2 text-[15px] font-bold tracking-wide text-clay uppercase"
+            >
+              Our story
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Link>
+          </Reveal>
+          <Reveal variant="reveal-window" delay={200} className="relative mt-10 hidden aspect-[16/10] lg:block">
+            <div className="absolute inset-0 translate-x-3 translate-y-3 rounded-2xl border-2 border-gold/60" />
+            <div className="relative h-full overflow-hidden rounded-2xl">
+              <Image
+                src="/homes/arlington/0.jpg"
+                alt="Front porch of a Live Oak home"
+                fill
+                sizes="520px"
+                className="object-cover"
+              />
+            </div>
           </Reveal>
         </div>
 
-        <div className="mx-auto mt-16 grid max-w-[1200px] gap-8 md:grid-cols-3">
+        <div className="grid content-center gap-5 sm:grid-cols-2">
           {features.map((f, i) => (
-            <Reveal key={f.title} delay={200 + i * 140}>
-              <article className="h-full rounded-[28px] border border-line bg-card p-8 text-left transition-all duration-500 ease-out hover:-translate-y-1.5 hover:bg-[#f9f5ef] hover:shadow-[0_24px_50px_-24px_rgba(20,20,20,0.35)]">
-                <span className="grid h-12 w-12 place-items-center rounded-2xl bg-blush text-clay">
+            <Reveal key={f.title} delay={120 + i * 100}>
+              <article className="group relative h-full overflow-hidden rounded-2xl border border-line bg-white p-7 transition-all duration-500 ease-out hover:-translate-y-1 hover:border-clay/40 hover:shadow-[0_30px_60px_-30px_rgba(13,21,32,0.35)]">
+                <span className="display absolute top-5 right-6 text-5xl text-ink/[0.06]">0{i + 1}</span>
+                <span className="grid h-12 w-12 place-items-center rounded-xl bg-night text-white transition-colors group-hover:bg-clay">
                   <f.icon className="h-6 w-6" />
                 </span>
-                <h3 className="display mt-7 text-[26px]">{f.title}</h3>
-                <p className="mt-4 leading-relaxed text-muted">{f.body}</p>
+                <h3 className="display mt-6 text-[22px]">{f.title}</h3>
+                <p className="mt-3 leading-relaxed text-muted">{f.body}</p>
+                <span className="absolute inset-x-0 bottom-0 h-1 origin-left scale-x-0 bg-clay transition-transform duration-500 group-hover:scale-x-100" />
               </article>
             </Reveal>
           ))}
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }

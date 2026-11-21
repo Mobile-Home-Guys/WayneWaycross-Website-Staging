@@ -8,7 +8,7 @@ export default function Gallery({ images, alt }: { images: string[]; alt: string
   const [active, setActive] = useState(0);
   return (
     <div>
-      <div className="relative aspect-[4/3] overflow-hidden rounded-[28px] border border-line bg-band">
+      <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-line bg-band">
         <Image
           key={images[active]}
           src={images[active]}
