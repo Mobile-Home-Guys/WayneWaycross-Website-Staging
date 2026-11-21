@@ -1,55 +1,62 @@
 import { readIds, signIds, writeLead } from "../../lib/ghl";
-import { ALL_QUESTIONS, STEPS, TOTAL_STEPS, visible } from "../../lib/lead-steps";
+import { FORMS, allQuestions, totalSteps, visible, type FormKind } from "../../lib/lead-steps";
 import { site } from "../../lib/site";
 
 /**
- * The "Get this home" form posts here after every step (`step` 1 = contact
- * details, then one per entry in STEPS). Each post creates or updates the
- * GHL contact and rewrites one note with every answer so far, so a buyer who
- * stops halfway is still captured.
+ * Both home-page lead forms post here after every step: `form` is "quote" or
+ * "financing", `step` 1 is contact details, then one per step of that form.
+ * Each post creates or updates the GHL contact (one per person, matched by
+ * email/phone), tags it by form and home, and rewrites that form's own note
+ * with every answer so far, so a buyer who stops halfway is still captured.
  */
 export async function POST(request: Request) {
   const body = await request.json().catch(() => null);
   if (!body || typeof body !== "object") return Response.json({ error: "Invalid request" }, { status: 400 });
   if (body.company) return Response.json({ ok: true }); // honeypot
 
+  const form = FORMS[(body.form === "financing" ? "financing" : "quote") as FormKind];
+  const total = totalSteps(form);
   const clean = (v: unknown, max = 300) => String(v ?? "").trim().slice(0, max);
   const name = clean(body.name, 120);
   const email = clean(body.email, 200);
   const phone = clean(body.phone, 40);
   const home = clean(body.home, 120);
   const slug = clean(body.slug, 80).replace(/[^a-z0-9-]/g, "");
-  const step = Math.max(1, Math.min(TOTAL_STEPS, Number(body.step) || 1));
+  const step = Math.max(1, Math.min(total, Number(body.step) || 1));
   if (!name || !/^\S+@\S+\.\S+$/.test(email) || phone.replace(/\D/g, "").length < 10) {
     return Response.json({ error: "Missing contact details" }, { status: 400 });
   }
 
   const raw = (body.answers && typeof body.answers === "object" ? body.answers : {}) as Record<string, unknown>;
   const answers: Record<string, string> = {};
-  for (const q of ALL_QUESTIONS) {
-    const v = clean(raw[q.name], q.input === "textarea" ? 1500 : 200);
+  for (const q of allQuestions(form)) {
+    const v = clean(raw[q.name], q.input === "textarea" ? 1500 : 400);
     if (!v) continue;
-    if (q.choices && !q.choices.includes(v)) continue;
-    answers[q.name] = v;
+    if (q.choices) {
+      const chosen = q.multi ? v.split(", ").filter((c) => q.choices!.includes(c)) : q.choices.includes(v) ? [v] : [];
+      if (!chosen.length) continue;
+      answers[q.name] = chosen.join(", ");
+    } else {
+      answers[q.name] = v;
+    }
   }
-  const answered = ALL_QUESTIONS.filter((q) => answers[q.name] && visible(q, answers)).map(
-    (q) => [q.label, answers[q.name]] as [string, string],
-  );
+  const answered = allQuestions(form)
+    .filter((q) => answers[q.name] && visible(q, answers))
+    .map((q) => [q.label, answers[q.name]] as [string, string]);
 
-  const done = step >= TOTAL_STEPS;
-  const homeTag = slug ? `home: ${slug}` : undefined;
+  const done = step >= total;
   const tags = [
     "website lead",
-    "get this home",
-    done ? "get this home: completed" : "get this home: started",
-    ...(homeTag ? [homeTag] : []),
+    form.tag,
+    `${form.tag}: ${done ? "completed" : "started"}`,
+    ...(slug ? [`home: ${slug}`] : []),
     ...(answers.timeline ? [`timeline: ${answers.timeline.toLowerCase()}`] : []),
   ];
 
   const page = slug ? `${site.url}/homes/${slug}` : site.url;
   const note = [
-    `Website lead – Get this home${home ? `: ${home}` : ""}`,
-    done ? "Finished every step." : `Finished step ${step} of ${TOTAL_STEPS} (${STEPS[step - 2]?.title ?? "contact details"}).`,
+    `${form.noteTitle}${home ? `: ${home}` : ""}`,
+    done ? "Finished every step." : `Finished step ${step} of ${total} (${form.steps[step - 2]?.title ?? "contact details"}).`,
     "",
     `Name: ${name}`,
     `Phone: ${phone}`,
@@ -64,7 +71,7 @@ export async function POST(request: Request) {
     name,
     email,
     phone,
-    source: "Website – Get This Home",
+    source: form.source,
     tags,
     answers: answered,
     note,
@@ -74,10 +81,10 @@ export async function POST(request: Request) {
 
   if (typeof result === "string") {
     if (result === "not configured") {
-      console.log("Get-this-home lead (GHL not configured):", { step, home, name, email, phone, answers });
+      console.log(`${form.noteTitle} (GHL not configured):`, { step, home, name, email, phone, answers });
       return Response.json({ ok: true });
     }
-    console.error("Get-this-home lead failed to reach GHL:", result);
+    console.error(`${form.noteTitle} failed to reach GHL:`, result);
     /* Only the first step must land; later steps should not block the buyer. */
     return step === 1 ? Response.json({ error: "Could not save" }, { status: 502 }) : Response.json({ ok: true });
   }

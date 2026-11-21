@@ -5,8 +5,8 @@ import { CallToAction, Footer } from "../../components/Closing";
 import JsonLd, { breadcrumbSchema } from "../../components/JsonLd";
 import HomeCard from "../../components/HomeCard";
 import Gallery from "../../components/Gallery";
-import GetThisHomeForm from "../../components/GetThisHomeForm";
-import { ArrowRight, Check, PhoneIcon } from "../../components/Icons";
+import HomeLeadForm from "../../components/HomeLeadForm";
+import { ArrowRight, Check, KeyIcon, PhoneIcon } from "../../components/Icons";
 import Nav from "../../components/Nav";
 import { hasDesigner } from "../../lib/designer";
 import { cover, getHome, homes, homeAlt } from "../../lib/homes";
@@ -88,6 +88,16 @@ export default async function HomePage({ params }: Props) {
                     </span>
                   )}
                 </div>
+                <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+                  <a href="#quote" className="btn btn-red px-7 py-4 text-[17px]">
+                    Get a quote on this home
+                    <ArrowRight className="h-4 w-4" />
+                  </a>
+                  <a href="#financing" className="btn btn-ghost-white px-7 py-4 text-[17px]">
+                    <KeyIcon className="h-4 w-4" />
+                    Request financing info
+                  </a>
+                </div>
               </div>
               <dl className="grid grid-cols-3 gap-px overflow-hidden border-t-4 border-clay bg-white/10">
                 {stats.map((s) => (
@@ -107,30 +117,32 @@ export default async function HomePage({ params }: Props) {
             <Gallery images={home.images} alt={homeAlt(home)} />
             <aside className="space-y-4 lg:sticky lg:top-28">
               <div className="border-t-4 border-clay bg-band p-7">
-                <h2 className="text-3xl">See the {home.name} in person</h2>
+                <p className="eyebrow">Help us help you</p>
+                <h2 className="mt-2 text-3xl">Get a quote on the {home.name}</h2>
                 <p className="mt-3 leading-relaxed text-muted">
-                  Come see the {home.name}{" "}in person. We&rsquo;ll walk you through floor plan options, customization,
-                  delivery and setup.
+                  Answer a few quick questions and we&rsquo;ll price the {home.name} with delivery and setup for your
+                  spot. It takes about a minute.
                 </p>
                 <div className="mt-6 flex flex-col gap-3">
-                  <a href="#get-this-home" className="btn btn-red px-7 py-4">
-                    Get the {home.name}
+                  <a href="#quote" className="btn btn-red px-7 py-4">
+                    Get a quote
                     <ArrowRight className="h-4 w-4" />
                   </a>
-                  <a
-                    href={site.phoneHref}
-                    className="btn btn-ink px-7 py-4"
-                  >
+                  <a href="#financing" className="btn btn-ink px-7 py-4">
+                    <KeyIcon className="h-4 w-4" />
+                    Request financing info
+                  </a>
+                  <a href={site.phoneHref} className="btn btn-outline bg-white px-7 py-4">
                     <PhoneIcon className="h-4 w-4" />
                     Call {site.phone}
                   </a>
-                  <Link
-                    href="/contact"
-                    className="btn btn-outline bg-white px-7 py-4"
-                  >
+                </div>
+                <p className="mt-4 text-center text-sm text-muted">
+                  Rather see it first?{" "}
+                  <Link href="/contact" className="font-medium text-ink underline underline-offset-4 hover:text-clay">
                     Request a visit
                   </Link>
-                </div>
+                </p>
                 <ul className="mt-6 space-y-2 border-t border-line pt-5 text-sm text-muted">
                   {["Exclusive Live Oak Homes retailer", "Built in the Waycross area", "Local delivery & setup"].map((t) => (
                     <li key={t} className="flex items-center gap-2.5">
@@ -161,17 +173,18 @@ export default async function HomePage({ params }: Props) {
           </div>
         </section>
 
-        <section id="get-this-home" className="scroll-mt-24 bg-band px-4 py-16 sm:px-6 md:py-20">
+        <section id="quote" className="scroll-mt-24 bg-band px-4 py-16 sm:px-6 md:py-20">
+          <span id="get-this-home" className="block scroll-mt-24" aria-hidden />
           <div className="mx-auto grid max-w-[1280px] gap-10 lg:grid-cols-[1fr_1.4fr] lg:items-start">
             <div>
-              <p className="eyebrow">Get this home</p>
-              <h2 className="display mt-4 text-[clamp(2.2rem,4vw,3.2rem)]">Make the {home.name} yours</h2>
+              <p className="eyebrow">Get a quote</p>
+              <h2 className="display mt-4 text-[clamp(2.2rem,4vw,3.2rem)]">Get a quote on the {home.name}</h2>
               <p className="mt-4 max-w-md leading-relaxed text-muted">
-                Answer a few quick questions and we&rsquo;ll check availability, delivery and financing
-                options for the {home.name}. It takes about a minute.
+                Help us help you. Every quote depends on where the home is going, what you&rsquo;d like included and how
+                you plan to pay. A few quick taps and our team can come back with real numbers for you.
               </p>
               <ul className="mt-6 space-y-2 text-sm text-muted">
-                {["No obligation", "Help lining up financing", "Local delivery & setup"].map((t) => (
+                {["No obligation", "Delivery & setup priced for your spot", "A real person follows up"].map((t) => (
                   <li key={t} className="flex items-center gap-2.5">
                     <Check className="h-4 w-4 text-sage" />
                     {t}
@@ -180,7 +193,31 @@ export default async function HomePage({ params }: Props) {
               </ul>
             </div>
             <div className="border-t-4 border-clay bg-white p-6 shadow-sm sm:p-8">
-              <GetThisHomeForm home={home.name} slug={home.slug} designable={designable} />
+              <HomeLeadForm kind="quote" home={home.name} slug={home.slug} designable={designable} />
+            </div>
+          </div>
+        </section>
+
+        <section id="financing" className="scroll-mt-24 px-4 py-16 sm:px-6 md:py-20">
+          <div className="mx-auto grid max-w-[1280px] gap-10 lg:grid-cols-[1fr_1.4fr] lg:items-start">
+            <div>
+              <p className="eyebrow">Financing</p>
+              <h2 className="display mt-4 text-[clamp(2.2rem,4vw,3.2rem)]">Request financing info</h2>
+              <p className="mt-4 max-w-md leading-relaxed text-muted">
+                Not sure how to pay for it? Answer a few financing questions and a member of our team will reach out to
+                talk through your options for the {home.name}.
+              </p>
+              <ul className="mt-6 space-y-2 text-sm text-muted">
+                {["Not a credit application", "Won’t affect your credit", "Talk options with a real person"].map((t) => (
+                  <li key={t} className="flex items-center gap-2.5">
+                    <Check className="h-4 w-4 text-sage" />
+                    {t}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="border-t-4 border-clay bg-band p-6 shadow-sm sm:p-8">
+              <HomeLeadForm kind="financing" home={home.name} slug={home.slug} designable={designable} />
             </div>
           </div>
         </section>

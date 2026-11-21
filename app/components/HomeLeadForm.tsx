@@ -1,35 +1,77 @@
 "use client";
 
 import Link from "next/link";
-import { useState, type FormEvent } from "react";
-import { STEPS, TOTAL_STEPS, visible, type Question } from "../lib/lead-steps";
+import { useState, useSyncExternalStore, type FormEvent } from "react";
+import { getContact, getServerContact, setContact, subscribeContact } from "../lib/contact-store";
+import { FORMS, picks, totalSteps, visible, type FormKind, type Question } from "../lib/lead-steps";
 import { site } from "../lib/site";
 import { ArrowRight, Check, PhoneIcon } from "./Icons";
 
 const field =
   "h-13 w-full border-0 border-b-2 border-line-strong bg-white px-4 text-[16px] text-ink placeholder:text-muted outline-none transition-colors focus:border-clay";
 
+const COPY: Record<
+  FormKind,
+  {
+    anchor: string;
+    intro: (home: string) => string;
+    start: string;
+    finish: string;
+    thanks: (home: string) => string;
+    after: (home: string) => string;
+    other: { href: string; label: (home: string) => string };
+  }
+> = {
+  quote: {
+    anchor: "quote",
+    intro: (home) => `Tell us where to reach you, then a few quick taps so we can put together a real quote on the ${home}.`,
+    start: "Start my quote",
+    finish: "Send my quote request",
+    thanks: (home) => `Your quote request for the ${home} is in.`,
+    after: (home) =>
+      `Someone from our team will reach out shortly with pricing on the ${home}, delivery and setup for your spot. Need us sooner?`,
+    other: { href: "#financing", label: () => "Request financing info too" },
+  },
+  financing: {
+    anchor: "financing",
+    intro: () => "Tell us where to reach you, then a few quick financing questions so our team can call you with real options.",
+    start: "Next",
+    finish: "Send my financing request",
+    thanks: () => "Your financing request is in.",
+    after: () =>
+      "A member of our team will reach out to talk through your financing options. Financing is subject to lender approval. Need us sooner?",
+    other: { href: "#quote", label: (home) => `Get a quote on the ${home}` },
+  },
+};
+
 /**
- * Multi-step "Get this home" form. Step 1 takes name, phone and email; every
- * Next after that saves the answers so far to GHL through /api/lead.
+ * Multi-step lead form for a home page: "quote" or "financing". Step 1 takes
+ * name, phone and email (shared between both forms); every Next after that
+ * saves the answers so far to GHL through /api/lead.
  */
-export default function GetThisHomeForm({
+export default function HomeLeadForm({
+  kind,
   home,
   slug,
   designable,
 }: {
+  kind: FormKind;
   home: string;
   slug: string;
   designable: boolean;
 }) {
+  const form = FORMS[kind];
+  const copy = COPY[kind];
+  const total = totalSteps(form);
+  const contact = useSyncExternalStore(subscribeContact, getContact, getServerContact);
+  const [company, setCompany] = useState("");
   const [step, setStep] = useState(1);
-  const [contact, setContact] = useState({ name: "", phone: "", email: "", company: "" });
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [token, setToken] = useState<string>();
   const [status, setStatus] = useState<"idle" | "sending" | "error">("idle");
   const [missing, setMissing] = useState(false);
-  const done = step > TOTAL_STEPS;
-  const current = STEPS[step - 2];
+  const done = step > total;
+  const current = form.steps[step - 2];
   const questions = current ? current.questions.filter((q) => visible(q, answers)) : [];
 
   async function save(next: number) {
@@ -38,14 +80,14 @@ export default function GetThisHomeForm({
       const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...contact, home: `The ${home}`, slug, step, answers, token }),
+        body: JSON.stringify({ form: kind, ...contact, company, home: `The ${home}`, slug, step, answers, token }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error();
       if (data.token) setToken(data.token);
       setStatus("idle");
       setStep(next);
-      document.getElementById("get-this-home")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      document.getElementById(copy.anchor)?.scrollIntoView({ behavior: "smooth", block: "start" });
     } catch {
       setStatus("error");
     }
@@ -61,7 +103,15 @@ export default function GetThisHomeForm({
     void save(step + 1);
   }
 
-  const pick = (q: Question, v: string) => setAnswers((a) => ({ ...a, [q.name]: a[q.name] === v && !q.required ? "" : v }));
+  const pick = (q: Question, v: string) =>
+    setAnswers((a) => {
+      if (q.multi) {
+        const now = picks(a[q.name]);
+        const next = now.includes(v) ? now.filter((c) => c !== v) : [...now, v];
+        return { ...a, [q.name]: q.choices!.filter((c) => next.includes(c)).join(", ") };
+      }
+      return { ...a, [q.name]: a[q.name] === v && !q.required ? "" : v };
+    });
   const first = contact.name.trim().split(/\s+/)[0];
 
   if (done) {
@@ -70,16 +120,19 @@ export default function GetThisHomeForm({
         <span className="flex h-14 w-14 items-center justify-center rounded-full bg-clay text-white">
           <Check className="h-7 w-7" />
         </span>
-        <p className="display mt-6 text-3xl">Thanks{first ? `, ${first}` : ""}! The {home} is on our list for you.</p>
-        <p className="mt-3 max-w-md text-muted">
-          Someone from our team will reach out shortly to go over the {home}, delivery and financing. Need us sooner?
+        <p className="display mt-6 text-3xl">
+          Thanks{first ? `, ${first}` : ""}! {copy.thanks(home)}
         </p>
-        <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+        <p className="mt-3 max-w-md text-muted">{copy.after(home)}</p>
+        <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:justify-center">
           <a href={site.phoneHref} className="btn btn-red px-7 py-4">
             <PhoneIcon className="h-4 w-4" />
             Call {site.phone}
           </a>
-          {designable && (
+          <a href={copy.other.href} className="btn btn-outline bg-white px-7 py-4">
+            {copy.other.label(home)}
+          </a>
+          {designable && kind === "quote" && (
             <Link href={`/homes/${slug}/design`} className="btn btn-outline bg-white px-7 py-4">
               Design the {home} while you wait
             </Link>
@@ -94,7 +147,7 @@ export default function GetThisHomeForm({
       <div>
         <div className="flex items-center justify-between text-sm font-medium text-muted">
           <span>
-            Step {step} of {TOTAL_STEPS}
+            Step {step} of {total}
             {current ? ` · ${current.title}` : " · Your details"}
           </span>
           {step > 1 && (
@@ -104,11 +157,9 @@ export default function GetThisHomeForm({
           )}
         </div>
         <div className="mt-2 h-1.5 overflow-hidden bg-line" aria-hidden>
-          <div className="h-full bg-clay transition-all" style={{ width: `${((step - 1) / TOTAL_STEPS) * 100}%` }} />
+          <div className="h-full bg-clay transition-all" style={{ width: `${((step - 1) / total) * 100}%` }} />
         </div>
-        <p className="mt-4 text-muted">
-          {current ? current.lede : `Tell us where to reach you and we'll check availability, delivery and options on the ${home}.`}
-        </p>
+        <p className="mt-4 text-muted">{current ? current.lede : copy.intro(home)}</p>
       </div>
 
       {!current ? (
@@ -153,8 +204,8 @@ export default function GetThisHomeForm({
             tabIndex={-1}
             autoComplete="off"
             aria-hidden
-            value={contact.company}
-            onChange={(e) => setContact({ ...contact, company: e.target.value })}
+            value={company}
+            onChange={(e) => setCompany(e.target.value)}
             className="absolute -left-[9999px] h-px w-px opacity-0"
           />
         </div>
@@ -170,17 +221,18 @@ export default function GetThisHomeForm({
               {q.choices ? (
                 <div className="mt-3 flex flex-wrap gap-2">
                   {q.choices.map((c) => {
-                    const on = answers[q.name] === c;
+                    const on = q.multi ? picks(answers[q.name]).includes(c) : answers[q.name] === c;
                     return (
                       <button
                         key={c}
                         type="button"
                         aria-pressed={on}
                         onClick={() => pick(q, c)}
-                        className={`border-2 px-4 py-2.5 text-[15px] font-medium transition-colors ${
+                        className={`inline-flex items-center gap-1.5 border-2 px-4 py-2.5 text-[15px] font-medium transition-colors ${
                           on ? "border-clay bg-clay text-white" : "border-line-strong bg-white text-ink hover:border-clay"
                         } ${missing && q.required && !answers[q.name] ? "border-clay/60" : ""}`}
                       >
+                        {q.multi && on && <Check className="h-4 w-4" />}
                         {c}
                       </button>
                     );
@@ -189,15 +241,17 @@ export default function GetThisHomeForm({
               ) : q.input === "textarea" ? (
                 <textarea
                   rows={3}
+                  aria-label={q.label}
                   value={answers[q.name] ?? ""}
                   onChange={(e) => setAnswers({ ...answers, [q.name]: e.target.value })}
                   className={`${field} mt-3 h-auto py-3`}
                 />
               ) : (
                 <input
+                  aria-label={q.label}
                   value={answers[q.name] ?? ""}
                   onChange={(e) => setAnswers({ ...answers, [q.name]: e.target.value })}
-                  placeholder="e.g. Ware County"
+                  placeholder={q.placeholder}
                   className={`${field} mt-3`}
                 />
               )}
@@ -208,12 +262,12 @@ export default function GetThisHomeForm({
 
       {missing && (
         <p role="alert" className="text-sm font-medium text-clay">
-          Pick an answer for each question to keep going.
+          Answer each question that isn&rsquo;t marked optional to keep going.
         </p>
       )}
 
       <button type="submit" disabled={status === "sending"} className="btn btn-red h-14 w-full text-[18px] disabled:opacity-70">
-        {status === "sending" ? "Saving…" : step === TOTAL_STEPS ? "Finish" : step === 1 ? `Get the ${home}` : "Next"}
+        {status === "sending" ? "Saving…" : step === total ? copy.finish : step === 1 ? copy.start : "Next"}
         {status !== "sending" && <ArrowRight className="h-5 w-5" />}
       </button>
 
@@ -221,6 +275,12 @@ export default function GetThisHomeForm({
         <p className="text-xs leading-relaxed text-muted">
           By sending this, you agree that {site.fullName} may contact you about this home by call, text or email at the
           number and address above. Message and data rates may apply. Reply STOP to opt out of texts.
+        </p>
+      )}
+      {kind === "financing" && (
+        <p className="text-xs leading-relaxed text-muted">
+          This is not a credit application and won&rsquo;t affect your credit. A team member will follow up to talk through
+          your options. All financing is subject to lender approval.
         </p>
       )}
       {status === "error" && (
