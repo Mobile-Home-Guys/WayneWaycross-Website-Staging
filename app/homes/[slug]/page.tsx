@@ -5,6 +5,7 @@ import { CallToAction, Footer } from "../../components/Closing";
 import JsonLd, { breadcrumbSchema } from "../../components/JsonLd";
 import HomeCard from "../../components/HomeCard";
 import Gallery from "../../components/Gallery";
+import GetThisHomeForm from "../../components/GetThisHomeForm";
 import { ArrowRight, Check, PhoneIcon } from "../../components/Icons";
 import Nav from "../../components/Nav";
 import { hasDesigner } from "../../lib/designer";
@@ -112,9 +113,13 @@ export default async function HomePage({ params }: Props) {
                   delivery and setup.
                 </p>
                 <div className="mt-6 flex flex-col gap-3">
+                  <a href="#get-this-home" className="btn btn-red px-7 py-4">
+                    Get the {home.name}
+                    <ArrowRight className="h-4 w-4" />
+                  </a>
                   <a
                     href={site.phoneHref}
-                    className="btn btn-red px-7 py-4"
+                    className="btn btn-ink px-7 py-4"
                   >
                     <PhoneIcon className="h-4 w-4" />
                     Call {site.phone}
@@ -153,6 +158,30 @@ export default async function HomePage({ params }: Props) {
                 </Link>
               )}
             </aside>
+          </div>
+        </section>
+
+        <section id="get-this-home" className="scroll-mt-24 bg-band px-4 py-16 sm:px-6 md:py-20">
+          <div className="mx-auto grid max-w-[1280px] gap-10 lg:grid-cols-[1fr_1.4fr] lg:items-start">
+            <div>
+              <p className="eyebrow">Get this home</p>
+              <h2 className="display mt-4 text-[clamp(2.2rem,4vw,3.2rem)]">Make the {home.name} yours</h2>
+              <p className="mt-4 max-w-md leading-relaxed text-muted">
+                Answer a few quick questions and we&rsquo;ll check availability, delivery and financing
+                options for the {home.name}. It takes about a minute.
+              </p>
+              <ul className="mt-6 space-y-2 text-sm text-muted">
+                {["No obligation", "Help lining up financing", "Local delivery & setup"].map((t) => (
+                  <li key={t} className="flex items-center gap-2.5">
+                    <Check className="h-4 w-4 text-sage" />
+                    {t}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="border-t-4 border-clay bg-white p-6 shadow-sm sm:p-8">
+              <GetThisHomeForm home={home.name} slug={home.slug} designable={designable} />
+            </div>
           </div>
         </section>
 
