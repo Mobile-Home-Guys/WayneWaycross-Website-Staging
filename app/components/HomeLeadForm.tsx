@@ -45,7 +45,8 @@ const COPY: Record<
 };
 
 /**
- * Multi-step lead form for a home page: "quote" or "financing". Step 1 takes
+ * Multi-step lead form for a home page: "quote" or "financing". The financing form also runs on its
+ * own /financing page with no `home`; it then sends no home or slug and links to the quote form instead. Step 1 takes
  * name, phone and email (shared between both forms); every Next after that
  * saves the answers so far to GHL through /api/lead.
  */
@@ -56,12 +57,13 @@ export default function HomeLeadForm({
   designable,
 }: {
   kind: FormKind;
-  home: string;
-  slug: string;
-  designable: boolean;
+  home?: string;
+  slug?: string;
+  designable?: boolean;
 }) {
   const form = FORMS[kind];
   const copy = COPY[kind];
+  const other = home ? copy.other : { href: "/contact#contact", label: () => "Get a free quote" };
   const total = totalSteps(form);
   const contact = useSyncExternalStore(subscribeContact, getContact, getServerContact);
   const [company, setCompany] = useState("");
@@ -80,7 +82,16 @@ export default function HomeLeadForm({
       const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ form: kind, ...contact, company, home: `The ${home}`, slug, step, answers, token }),
+        body: JSON.stringify({
+          form: kind,
+          ...contact,
+          company,
+          home: home ? `The ${home}` : "",
+          slug: slug ?? "",
+          step,
+          answers,
+          token,
+        }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error();
@@ -121,18 +132,18 @@ export default function HomeLeadForm({
           <Check className="h-7 w-7" />
         </span>
         <p className="display mt-6 text-3xl">
-          Thanks{first ? `, ${first}` : ""}! {copy.thanks(home)}
+          Thanks{first ? `, ${first}` : ""}! {copy.thanks(home ?? "")}
         </p>
-        <p className="mt-3 max-w-md text-muted">{copy.after(home)}</p>
+        <p className="mt-3 max-w-md text-muted">{copy.after(home ?? "")}</p>
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:justify-center">
           <a href={site.phoneHref} className="btn btn-red px-7 py-4">
             <PhoneIcon className="h-4 w-4" />
             Call {site.phone}
           </a>
-          <a href={copy.other.href} className="btn btn-outline bg-white px-7 py-4">
-            {copy.other.label(home)}
+          <a href={other.href} className="btn btn-outline bg-white px-7 py-4">
+            {other.label(home ?? "")}
           </a>
-          {designable && kind === "quote" && (
+          {designable && home && kind === "quote" && (
             <Link href={`/homes/${slug}/design`} className="btn btn-outline bg-white px-7 py-4">
               Design the {home} while you wait
             </Link>
@@ -159,7 +170,7 @@ export default function HomeLeadForm({
         <div className="mt-2 h-1.5 overflow-hidden bg-line" aria-hidden>
           <div className="h-full bg-clay transition-all" style={{ width: `${((step - 1) / total) * 100}%` }} />
         </div>
-        <p className="mt-4 text-muted">{current ? current.lede : copy.intro(home)}</p>
+        <p className="mt-4 text-muted">{current ? current.lede : copy.intro(home ?? "")}</p>
       </div>
 
       {!current ? (
@@ -273,7 +284,7 @@ export default function HomeLeadForm({
 
       {step === 1 && (
         <p className="text-xs leading-relaxed text-muted">
-          By sending this, you agree that {site.fullName} may contact you about this home by call, text or email at the
+          By sending this, you agree that {site.fullName} may contact you about {home ? "this home" : "your request"} by call, text or email at the
           number and address above. Message and data rates may apply. Reply STOP to opt out of texts.
         </p>
       )}

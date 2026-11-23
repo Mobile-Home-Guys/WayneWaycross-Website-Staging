@@ -25,9 +25,9 @@ export default function Home() {
         <OnTheLot />
         <DesignShowcase />
         <Features />
-        <Reviews />
+        <Reviews limit={12} />
         <Specials />
-        <CallToAction />
+        <CallToAction form={false} />
       </main>
       <Footer />
     </>
