@@ -21,6 +21,7 @@ const links = [
   { href: "/homes", label: "Homes", Icon: HouseIcon },
   { href: "/#design", label: "Design online", Icon: RollerIcon },
   { href: "/specials", label: "Specials", Icon: StarIcon },
+  { href: "/financing", label: "Financing", Icon: ShieldIcon },
   { href: "/upgrades", label: "Upgrades", Icon: KeyIcon },
   { href: "/about", label: "About", Icon: ShieldIcon },
   { href: "/contact", label: "Contact", Icon: PinIcon },
@@ -94,7 +95,7 @@ export default function Nav() {
                       active ? "bg-blush text-clay" : "text-ink hover:bg-band"
                     }`}
                   >
-                    <Icon className="h-4 w-4 shrink-0" />
+                    <Icon className="hidden h-4 w-4 shrink-0 xl:block" />
                     {label}
                   </Link>
                 );

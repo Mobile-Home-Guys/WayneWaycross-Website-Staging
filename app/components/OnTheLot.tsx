@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { hasDesigner } from "../lib/designer/series";
 import { getHome, homes, type Home } from "../lib/homes";
-import { lot, LOT_UPDATED } from "../lib/lot";
+import { lot } from "../lib/lot";
 import { site } from "../lib/site";
 import HomeCard from "./HomeCard";
 import { ArrowRight, PhoneIcon } from "./Icons";
@@ -33,8 +33,8 @@ export default function OnTheLot() {
               <p className="eyebrow">Walk through today</p>
               <h2 className="mt-2 text-4xl md:text-6xl">On our lot now</h2>
               <p className="mt-3 max-w-2xl text-lg text-muted">
-                {lot.length} homes ready to tour at {site.address.street}, as of {LOT_UPDATED}. Tap one for photos and
-                specs, or design it in your own colors.
+                {lot.length} homes ready to tour at {site.address.street}. Tap one for photos and specs, or design it in
+                your own colors.
               </p>
             </div>
             <div className="flex flex-wrap gap-3">

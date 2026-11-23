@@ -1,6 +1,5 @@
 import Image from "next/image";
-import { designerSlugs } from "../lib/designer";
-import { getHome, homes } from "../lib/homes";
+import { getHome } from "../lib/homes";
 import { lot } from "../lib/lot";
 import { site } from "../lib/site";
 import { ArrowRight, Check, PhoneIcon, PinIcon } from "./Icons";
@@ -13,13 +12,10 @@ const backdrop = getHome("heritage");
  * then a ticker of the store's facts. On a phone the form waits further down the page.
  */
 export default function Hero() {
-  const designable = designerSlugs().filter((s) => getHome(s)).length;
   const ticker = [
     "Exclusive Live Oak Homes retailer",
     "Built in Waycross",
-    `${homes.length} floor plans`,
-    `${lot.length} homes on our lot`,
-    `${designable} homes to design online`,
+    "Design your home online",
     "Energy Star certified homes",
     "Third-party inspected",
     "Delivery to FL, GA & SC",
@@ -53,8 +49,8 @@ export default function Hero() {
               <span className="block text-[#ff4d55]">Sold in Waycross.</span>
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/90 md:text-xl">
-              The exclusive Live Oak Homes retailer in Waycross. {homes.length} floor plans, {designable} you can design
-              online, and our own team for delivery and setup.
+              The exclusive Live Oak Homes retailer in Waycross. Design your home online, then let our own team handle
+              delivery and setup.
             </p>
             <div className="mt-8 grid gap-3 sm:flex">
               <a href="#listings" className="btn btn-red group px-8 py-4 text-lg">

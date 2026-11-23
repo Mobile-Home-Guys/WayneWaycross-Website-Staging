@@ -2,6 +2,7 @@ import Image from "next/image";
 import { getReviews, googleReviewsUrl, googleWriteReviewUrl, type Review } from "../lib/reviews";
 import { ArrowRight, QuoteIcon } from "./Icons";
 import Reveal from "./Reveal";
+import ReviewText from "./ReviewText";
 
 const fmtDate = (iso: string) =>
   new Date(`${iso}T12:00:00Z`).toLocaleDateString("en-US", { month: "short", year: "numeric", timeZone: "UTC" });
@@ -45,9 +46,7 @@ function ReviewCard({ review, hidden }: { review: Review; hidden?: boolean }) {
           <GoogleG className="h-5 w-5" />
         </span>
       </div>
-      <blockquote className="mt-4 line-clamp-5 flex-1 text-[16px] leading-relaxed text-ink-soft">
-        &ldquo;{review.text}&rdquo;
-      </blockquote>
+      <ReviewText text={review.text} hidden={hidden} />
       <figcaption className="mt-5 flex items-center gap-3">
         {review.avatar ? (
           <Image
@@ -91,8 +90,10 @@ function TickerRow({ reviews, reverse, seconds }: { reviews: Review[]; reverse?:
   );
 }
 
-export default async function Reviews({ id = "reviews" }: { id?: string }) {
-  const { reviews, rating, total } = await getReviews();
+/** `limit` caps how many of the newest reviews show; the home page keeps it short so it loads fast. */
+export default async function Reviews({ id = "reviews", limit }: { id?: string; limit?: number }) {
+  const { reviews: all, rating, total } = await getReviews();
+  const reviews = limit ? all.slice(0, limit) : all;
   if (reviews.length === 0) return null;
 
   const rows = reviews.length >= 8 ? [reviews.filter((_, i) => i % 2 === 0), reviews.filter((_, i) => i % 2 === 1)] : [reviews];

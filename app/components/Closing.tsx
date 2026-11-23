@@ -3,14 +3,22 @@ import { site } from "../lib/site";
 import { ArrowRight, Check, ClockIcon, Logo, PhoneIcon, PinIcon } from "./Icons";
 import QuoteForm from "./QuoteForm";
 
-/** Contact band with the quote form, then the address, hours and phone in three columns. */
-export function CallToAction() {
+/**
+ * Contact band with the quote form, then the address, hours and phone in three columns.
+ * The home page passes `form={false}`: its quote form already sits in the hero (or after the lot on a
+ * phone), so the band offers a button back to it instead of a second copy.
+ */
+export function CallToAction({ form = true }: { form?: boolean } = {}) {
   const trust = ["Exclusive Live Oak Homes retailer", "Energy Star certified homes", "Local delivery & setup"];
   const { street, city, region, postalCode } = site.address;
   return (
     <>
       <section id="contact" className="scroll-mt-32 border-t-4 border-clay bg-white">
-        <div className="mx-auto grid max-w-[1280px] gap-10 px-4 py-14 sm:px-6 md:py-20 lg:grid-cols-[1fr_1.05fr] lg:gap-16 lg:px-8">
+        <div
+          className={`mx-auto grid max-w-[1280px] gap-10 px-4 py-14 sm:px-6 md:py-20 lg:gap-16 lg:px-8 ${
+            form ? "lg:grid-cols-[1fr_1.05fr]" : ""
+          }`}
+        >
           <div>
             <p className="eyebrow">Get started</p>
             <h2 className="mt-2 text-4xl md:text-6xl">Ready to find your way home?</h2>
@@ -27,6 +35,16 @@ export function CallToAction() {
               ))}
             </ul>
             <div className="mt-8 grid gap-3 sm:flex">
+              {!form && (
+                <>
+                  <a href="#quote" className="btn btn-red px-7 py-4 md:hidden">
+                    Get a free quote
+                  </a>
+                  <a href="#top" className="btn btn-red hidden px-7 py-4 md:inline-flex">
+                    Get a free quote
+                  </a>
+                </>
+              )}
               <Link href="/homes" className="btn btn-ink group px-7 py-4">
                 Browse homes
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -38,11 +56,13 @@ export function CallToAction() {
             </div>
           </div>
 
-          <div className="bg-band p-6 sm:p-8">
-            <h3 className="text-3xl">Get a free quote</h3>
-            <p className="mt-1 mb-6 text-muted">Our team will call you back. No obligation.</p>
-            <QuoteForm tone="light" />
-          </div>
+          {form && (
+            <div className="bg-band p-6 sm:p-8">
+              <h3 className="text-3xl">Get a free quote</h3>
+              <p className="mt-1 mb-6 text-muted">Our team will call you back. No obligation.</p>
+              <QuoteForm tone="light" />
+            </div>
+          )}
         </div>
       </section>
 
