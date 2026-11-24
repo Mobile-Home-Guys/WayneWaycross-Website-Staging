@@ -12,8 +12,8 @@ export const designerRegions: Record<string, DesignerPhotos> = {
       "regions": {
         "siding": {
           "mask": "/designer/ace/exterior-siding.png",
-          "ref": 0.69,
-          "asBuilt": "#ADB0B5"
+          "ref": 0.7052,
+          "asBuilt": "#B1B3B8"
         },
         "shutters": {
           "mask": "/designer/ace/exterior-shutters.png",
@@ -31,7 +31,7 @@ export const designerRegions: Record<string, DesignerPhotos> = {
       "regions": {
         "cabinets": {
           "mask": "/designer/ace/kitchen-cabinets.png",
-          "ref": 0.4624,
+          "ref": 0.4628,
           "asBuilt": "#946F4F"
         },
         "counters": {
@@ -46,7 +46,7 @@ export const designerRegions: Record<string, DesignerPhotos> = {
         },
         "flooring": {
           "mask": "/designer/ace/kitchen-flooring.png",
-          "ref": 0.6544,
+          "ref": 0.6543,
           "asBuilt": "#A9A6A5"
         }
       }
@@ -65,8 +65,8 @@ export const designerRegions: Record<string, DesignerPhotos> = {
         },
         "flooring": {
           "mask": "/designer/ace/living-flooring.png",
-          "ref": 0.4497,
-          "asBuilt": "#797169"
+          "ref": 0.4622,
+          "asBuilt": "#7C746C"
         }
       }
     },
@@ -89,8 +89,8 @@ export const designerRegions: Record<string, DesignerPhotos> = {
         },
         "bathwalls": {
           "mask": "/designer/ace/bath-bathwalls.png",
-          "ref": 0.683,
-          "asBuilt": "#B2AEAB"
+          "ref": 0.6866,
+          "asBuilt": "#B1AEAE"
         }
       }
     }
@@ -106,6 +106,11 @@ export const designerRegions: Record<string, DesignerPhotos> = {
       "regions": {
         "siding": {
           "mask": "/designer/charger/exterior-siding.png",
+          "ref": 0.3386,
+          "asBuilt": "#4B5B5F"
+        },
+        "battens": {
+          "mask": "/designer/charger/exterior-battens.png",
           "ref": 0.5803,
           "asBuilt": "#929495"
         }
@@ -135,8 +140,8 @@ export const designerRegions: Record<string, DesignerPhotos> = {
         },
         "walls": {
           "mask": "/designer/charger/kitchen-3-walls.png",
-          "ref": 0.4431,
-          "asBuilt": "#717071"
+          "ref": 0.451,
+          "asBuilt": "#757273"
         },
         "flooring": {
           "mask": "/designer/charger/kitchen-3-flooring.png",
@@ -154,12 +159,12 @@ export const designerRegions: Record<string, DesignerPhotos> = {
       "regions": {
         "walls": {
           "mask": "/designer/charger/living-walls.png",
-          "ref": 0.7625,
-          "asBuilt": "#BDC4C9"
+          "ref": 0.7521,
+          "asBuilt": "#BAC1C7"
         },
         "flooring": {
           "mask": "/designer/charger/living-flooring.png",
-          "ref": 0.4706,
+          "ref": 0.47,
           "asBuilt": "#7F766E"
         }
       }
@@ -178,12 +183,12 @@ export const designerRegions: Record<string, DesignerPhotos> = {
         },
         "vanitytop": {
           "mask": "/designer/charger/bath-vanitytop.png",
-          "ref": 0.2376,
-          "asBuilt": "#3D3C3D"
+          "ref": 0.2245,
+          "asBuilt": "#3B383A"
         },
         "bathwalls": {
           "mask": "/designer/charger/bath-bathwalls.png",
-          "ref": 0.6121,
+          "ref": 0.6112,
           "asBuilt": "#9F9B99"
         },
         "flooring": {
@@ -205,8 +210,13 @@ export const designerRegions: Record<string, DesignerPhotos> = {
       "regions": {
         "siding": {
           "mask": "/designer/cobblestone/exterior-2-siding.png",
+          "ref": 0.8899,
+          "asBuilt": "#DFE4E7"
+        },
+        "battens": {
+          "mask": "/designer/cobblestone/exterior-2-battens.png",
           "ref": 0.8902,
-          "asBuilt": "#E0E4E5"
+          "asBuilt": "#E1E4E4"
         }
       }
     },
@@ -219,8 +229,8 @@ export const designerRegions: Record<string, DesignerPhotos> = {
       "regions": {
         "cabinets": {
           "mask": "/designer/cobblestone/kitchen-4-cabinets.png",
-          "ref": 0.8137,
-          "asBuilt": "#CED0D2"
+          "ref": 0.8131,
+          "asBuilt": "#CED0D1"
         },
         "counters": {
           "mask": "/designer/cobblestone/kitchen-4-counters.png",
@@ -239,8 +249,8 @@ export const designerRegions: Record<string, DesignerPhotos> = {
         },
         "walls": {
           "mask": "/designer/cobblestone/kitchen-4-walls.png",
-          "ref": 0.4199,
-          "asBuilt": "#716964"
+          "ref": 0.4572,
+          "asBuilt": "#7A746E"
         }
       }
     },
@@ -282,8 +292,8 @@ export const designerRegions: Record<string, DesignerPhotos> = {
         },
         "bathwalls": {
           "mask": "/designer/cobblestone/bath-2-bathwalls.png",
-          "ref": 0.598,
-          "asBuilt": "#9D9795"
+          "ref": 0.6347,
+          "asBuilt": "#A7A09E"
         }
       }
     }
@@ -313,23 +323,23 @@ export const designerRegions: Record<string, DesignerPhotos> = {
       "regions": {
         "cabinets": {
           "mask": "/designer/defender/kitchen-cabinets.png",
-          "ref": 0.7335,
-          "asBuilt": "#B8BAC6"
+          "ref": 0.7338,
+          "asBuilt": "#B8BBC5"
         },
         "counters": {
           "mask": "/designer/defender/kitchen-counters.png",
-          "ref": 0.825,
-          "asBuilt": "#D2D1DC"
+          "ref": 0.8506,
+          "asBuilt": "#D8D8E1"
         },
         "island": {
           "mask": "/designer/defender/kitchen-island.png",
-          "ref": 0.7988,
-          "asBuilt": "#D1C9CC"
+          "ref": 0.8263,
+          "asBuilt": "#D7D0D3"
         },
         "flooring": {
           "mask": "/designer/defender/kitchen-flooring.png",
-          "ref": 0.7294,
-          "asBuilt": "#BBB8C0"
+          "ref": 0.7304,
+          "asBuilt": "#BBB9C0"
         }
       }
     },
@@ -342,8 +352,8 @@ export const designerRegions: Record<string, DesignerPhotos> = {
       "regions": {
         "walls": {
           "mask": "/designer/defender/living-walls.png",
-          "ref": 0.6007,
-          "asBuilt": "#9B989C"
+          "ref": 0.5996,
+          "asBuilt": "#9A989B"
         },
         "flooring": {
           "mask": "/designer/defender/living-flooring.png",
@@ -371,8 +381,8 @@ export const designerRegions: Record<string, DesignerPhotos> = {
         },
         "bathwalls": {
           "mask": "/designer/defender/bath-bathwalls.png",
-          "ref": 0.6751,
-          "asBuilt": "#A9ADB4"
+          "ref": 0.6591,
+          "asBuilt": "#A6A9AE"
         }
       }
     }
@@ -388,8 +398,8 @@ export const designerRegions: Record<string, DesignerPhotos> = {
       "regions": {
         "siding": {
           "mask": "/designer/dogwood/exterior-siding.png",
-          "ref": 0.3826,
-          "asBuilt": "#4B6A74"
+          "ref": 0.3838,
+          "asBuilt": "#4C6A74"
         }
       }
     },
@@ -417,8 +427,8 @@ export const designerRegions: Record<string, DesignerPhotos> = {
         },
         "flooring": {
           "mask": "/designer/dogwood/kitchen-6-flooring.png",
-          "ref": 0.5622,
-          "asBuilt": "#968E85"
+          "ref": 0.5493,
+          "asBuilt": "#928B82"
         }
       }
     },
@@ -436,8 +446,8 @@ export const designerRegions: Record<string, DesignerPhotos> = {
         },
         "walls": {
           "mask": "/designer/dogwood/living-2-walls.png",
-          "ref": 0.6672,
-          "asBuilt": "#A8ABAF"
+          "ref": 0.6661,
+          "asBuilt": "#A7AAAE"
         }
       }
     },
@@ -455,13 +465,13 @@ export const designerRegions: Record<string, DesignerPhotos> = {
         },
         "vanitytop": {
           "mask": "/designer/dogwood/bath-4-vanitytop.png",
-          "ref": 0.758,
-          "asBuilt": "#B3C2DE"
+          "ref": 0.6618,
+          "asBuilt": "#9CAAC7"
         },
         "bathwalls": {
           "mask": "/designer/dogwood/bath-4-bathwalls.png",
-          "ref": 0.6754,
-          "asBuilt": "#AFACA7"
+          "ref": 0.6696,
+          "asBuilt": "#ACAAA5"
         },
         "flooring": {
           "mask": "/designer/dogwood/bath-4-flooring.png",
@@ -482,8 +492,13 @@ export const designerRegions: Record<string, DesignerPhotos> = {
       "regions": {
         "siding": {
           "mask": "/designer/dolly/exterior-siding.png",
-          "ref": 0.4946,
-          "asBuilt": "#73837F"
+          "ref": 0.4941,
+          "asBuilt": "#738381"
+        },
+        "battens": {
+          "mask": "/designer/dolly/exterior-battens.png",
+          "ref": 0.725,
+          "asBuilt": "#A7BBE3"
         }
       }
     },
@@ -496,8 +511,8 @@ export const designerRegions: Record<string, DesignerPhotos> = {
       "regions": {
         "cabinets": {
           "mask": "/designer/dolly/kitchen-cabinets.png",
-          "ref": 0.4147,
-          "asBuilt": "#686B66"
+          "ref": 0.413,
+          "asBuilt": "#686B65"
         },
         "counters": {
           "mask": "/designer/dolly/kitchen-counters.png",
@@ -511,13 +526,13 @@ export const designerRegions: Record<string, DesignerPhotos> = {
         },
         "flooring": {
           "mask": "/designer/dolly/kitchen-flooring.png",
-          "ref": 0.4969,
-          "asBuilt": "#897C72"
+          "ref": 0.4748,
+          "asBuilt": "#84766C"
         },
         "walls": {
           "mask": "/designer/dolly/kitchen-walls.png",
-          "ref": 0.6351,
-          "asBuilt": "#A5A298"
+          "ref": 0.6308,
+          "asBuilt": "#A4A198"
         }
       }
     },
@@ -530,18 +545,18 @@ export const designerRegions: Record<string, DesignerPhotos> = {
       "regions": {
         "vanity": {
           "mask": "/designer/dolly/bath-vanity.png",
-          "ref": 0.4398,
-          "asBuilt": "#6F726A"
+          "ref": 0.4382,
+          "asBuilt": "#6F7169"
         },
         "vanitytop": {
           "mask": "/designer/dolly/bath-vanitytop.png",
-          "ref": 0.8172,
-          "asBuilt": "#C9D2DF"
+          "ref": 0.7993,
+          "asBuilt": "#C3CEDA"
         },
         "bathwalls": {
           "mask": "/designer/dolly/bath-bathwalls.png",
-          "ref": 0.6038,
-          "asBuilt": "#929F94"
+          "ref": 0.5999,
+          "asBuilt": "#909E93"
         }
       }
     }
@@ -554,15 +569,15 @@ export const designerRegions: Record<string, DesignerPhotos> = {
       "height": 667,
       "cladding": "smart-panel",
       "regions": {
-        "siding": {
-          "mask": "/designer/georgia-giant/exterior-siding.png",
-          "ref": 0.4193,
-          "asBuilt": "#616C7B"
+        "battens": {
+          "mask": "/designer/georgia-giant/exterior-battens.png",
+          "ref": 0.4005,
+          "asBuilt": "#5D6778"
         },
         "shutters": {
           "mask": "/designer/georgia-giant/exterior-shutters.png",
-          "ref": 0.6888,
-          "asBuilt": "#D7A677"
+          "ref": 0.69,
+          "asBuilt": "#D7A678"
         }
       }
     },
@@ -574,13 +589,13 @@ export const designerRegions: Record<string, DesignerPhotos> = {
       "regions": {
         "cabinets": {
           "mask": "/designer/georgia-giant/kitchen-cabinets.png",
-          "ref": 0.4623,
-          "asBuilt": "#9B6B4B"
+          "ref": 0.4546,
+          "asBuilt": "#9A6949"
         },
         "counters": {
           "mask": "/designer/georgia-giant/kitchen-counters.png",
-          "ref": 0.7397,
-          "asBuilt": "#C3BCB4"
+          "ref": 0.7563,
+          "asBuilt": "#C7C0BA"
         },
         "island": {
           "mask": "/designer/georgia-giant/kitchen-island.png",
@@ -589,8 +604,8 @@ export const designerRegions: Record<string, DesignerPhotos> = {
         },
         "flooring": {
           "mask": "/designer/georgia-giant/kitchen-flooring.png",
-          "ref": 0.6821,
-          "asBuilt": "#C1A995"
+          "ref": 0.6654,
+          "asBuilt": "#BDA490"
         }
       }
     },
@@ -607,8 +622,8 @@ export const designerRegions: Record<string, DesignerPhotos> = {
         },
         "flooring": {
           "mask": "/designer/georgia-giant/living-flooring.png",
-          "ref": 0.6631,
-          "asBuilt": "#B8A595"
+          "ref": 0.6544,
+          "asBuilt": "#B6A393"
         }
       }
     },
@@ -630,8 +645,8 @@ export const designerRegions: Record<string, DesignerPhotos> = {
         },
         "bathwalls": {
           "mask": "/designer/georgia-giant/bath-bathwalls.png",
-          "ref": 0.7683,
-          "asBuilt": "#C3C4C5"
+          "ref": 0.7765,
+          "asBuilt": "#C5C6C6"
         }
       }
     }
@@ -690,8 +705,8 @@ export const designerRegions: Record<string, DesignerPhotos> = {
       "regions": {
         "walls": {
           "mask": "/designer/high-country/living-2-walls.png",
-          "ref": 0.6754,
-          "asBuilt": "#B0ACA7"
+          "ref": 0.6657,
+          "asBuilt": "#ADA9A3"
         },
         "flooring": {
           "mask": "/designer/high-country/living-2-flooring.png",
@@ -720,7 +735,7 @@ export const designerRegions: Record<string, DesignerPhotos> = {
         "bathwalls": {
           "mask": "/designer/high-country/bath-bathwalls.png",
           "ref": 0.6202,
-          "asBuilt": "#9E9E9C"
+          "asBuilt": "#9E9E9D"
         },
         "flooring": {
           "mask": "/designer/high-country/bath-flooring.png",
@@ -739,8 +754,8 @@ export const designerRegions: Record<string, DesignerPhotos> = {
       "cladding": "vinyl",
       "credit": "Live Oak Homes",
       "regions": {
-        "siding": {
-          "mask": "/designer/highlander/exterior-siding.png",
+        "battens": {
+          "mask": "/designer/highlander/exterior-battens.png",
           "ref": 0.3462,
           "asBuilt": "#535C53"
         },
@@ -775,8 +790,8 @@ export const designerRegions: Record<string, DesignerPhotos> = {
         },
         "walls": {
           "mask": "/designer/highlander/kitchen-3-walls.png",
-          "ref": 0.7888,
-          "asBuilt": "#C7C9CB"
+          "ref": 0.7897,
+          "asBuilt": "#C9CAC9"
         }
       }
     },
@@ -791,11 +806,6 @@ export const designerRegions: Record<string, DesignerPhotos> = {
           "mask": "/designer/highlander/living-3-walls.png",
           "ref": 0.7456,
           "asBuilt": "#C3BEB6"
-        },
-        "flooring": {
-          "mask": "/designer/highlander/living-3-flooring.png",
-          "ref": 0.5737,
-          "asBuilt": "#978F93"
         }
       }
     },
@@ -813,8 +823,8 @@ export const designerRegions: Record<string, DesignerPhotos> = {
         },
         "vanitytop": {
           "mask": "/designer/highlander/bath-vanitytop.png",
-          "ref": 0.8,
-          "asBuilt": "#CDCCC9"
+          "ref": 0.7893,
+          "asBuilt": "#C9C9C6"
         },
         "bathwalls": {
           "mask": "/designer/highlander/bath-bathwalls.png",
@@ -835,8 +845,13 @@ export const designerRegions: Record<string, DesignerPhotos> = {
       "regions": {
         "siding": {
           "mask": "/designer/horizon/exterior-2-siding.png",
-          "ref": 0.5562,
-          "asBuilt": "#938B8C"
+          "ref": 0.5481,
+          "asBuilt": "#91898B"
+        },
+        "battens": {
+          "mask": "/designer/horizon/exterior-2-battens.png",
+          "ref": 0.9224,
+          "asBuilt": "#F0E9E4"
         }
       }
     },
@@ -849,13 +864,13 @@ export const designerRegions: Record<string, DesignerPhotos> = {
       "regions": {
         "cabinets": {
           "mask": "/designer/horizon/kitchen-2-cabinets.png",
-          "ref": 0.3844,
-          "asBuilt": "#765C4B"
+          "ref": 0.3668,
+          "asBuilt": "#705848"
         },
         "counters": {
           "mask": "/designer/horizon/kitchen-2-counters.png",
-          "ref": 0.7368,
-          "asBuilt": "#BABCC6"
+          "ref": 0.7354,
+          "asBuilt": "#BABCC5"
         },
         "walls": {
           "mask": "/designer/horizon/kitchen-2-walls.png",
@@ -864,8 +879,8 @@ export const designerRegions: Record<string, DesignerPhotos> = {
         },
         "flooring": {
           "mask": "/designer/horizon/kitchen-2-flooring.png",
-          "ref": 0.6344,
-          "asBuilt": "#A3A1A2"
+          "ref": 0.6157,
+          "asBuilt": "#9E9C9D"
         }
       }
     },
@@ -878,12 +893,12 @@ export const designerRegions: Record<string, DesignerPhotos> = {
       "regions": {
         "walls": {
           "mask": "/designer/horizon/living-3-walls.png",
-          "ref": 0.5451,
-          "asBuilt": "#888B93"
+          "ref": 0.5247,
+          "asBuilt": "#82868D"
         },
         "flooring": {
           "mask": "/designer/horizon/living-3-flooring.png",
-          "ref": 0.6082,
+          "ref": 0.6067,
           "asBuilt": "#9E9A98"
         }
       }
@@ -907,8 +922,8 @@ export const designerRegions: Record<string, DesignerPhotos> = {
         },
         "bathwalls": {
           "mask": "/designer/horizon/bath-5-bathwalls.png",
-          "ref": 0.6535,
-          "asBuilt": "#A4A7AD"
+          "ref": 0.6441,
+          "asBuilt": "#A2A4AB"
         },
         "flooring": {
           "mask": "/designer/horizon/bath-5-flooring.png",
@@ -958,8 +973,8 @@ export const designerRegions: Record<string, DesignerPhotos> = {
         },
         "walls": {
           "mask": "/designer/laramie/kitchen-3-walls.png",
-          "ref": 0.4993,
-          "asBuilt": "#79837C"
+          "ref": 0.4981,
+          "asBuilt": "#7B8279"
         },
         "flooring": {
           "mask": "/designer/laramie/kitchen-3-flooring.png",
@@ -977,8 +992,8 @@ export const designerRegions: Record<string, DesignerPhotos> = {
       "regions": {
         "walls": {
           "mask": "/designer/laramie/living-2-walls.png",
-          "ref": 0.6574,
-          "asBuilt": "#AAA8A1"
+          "ref": 0.6529,
+          "asBuilt": "#A9A6A0"
         },
         "flooring": {
           "mask": "/designer/laramie/living-2-flooring.png",
@@ -1006,8 +1021,8 @@ export const designerRegions: Record<string, DesignerPhotos> = {
         },
         "bathwalls": {
           "mask": "/designer/laramie/bath-4-bathwalls.png",
-          "ref": 0.5149,
-          "asBuilt": "#7D8683"
+          "ref": 0.5111,
+          "asBuilt": "#7D8582"
         },
         "flooring": {
           "mask": "/designer/laramie/bath-4-flooring.png",
@@ -1028,8 +1043,8 @@ export const designerRegions: Record<string, DesignerPhotos> = {
       "regions": {
         "siding": {
           "mask": "/designer/maverick/exterior-siding.png",
-          "ref": 0.6982,
-          "asBuilt": "#B4B1B1"
+          "ref": 0.6953,
+          "asBuilt": "#B4B0B0"
         },
         "shutters": {
           "mask": "/designer/maverick/exterior-shutters.png",
@@ -1047,13 +1062,13 @@ export const designerRegions: Record<string, DesignerPhotos> = {
       "regions": {
         "cabinets": {
           "mask": "/designer/maverick/kitchen-cabinets.png",
-          "ref": 0.7168,
-          "asBuilt": "#B7B7B4"
+          "ref": 0.7182,
+          "asBuilt": "#B8B7B5"
         },
         "counters": {
           "mask": "/designer/maverick/kitchen-counters.png",
-          "ref": 0.5134,
-          "asBuilt": "#838286"
+          "ref": 0.655,
+          "asBuilt": "#A5A7AE"
         },
         "island": {
           "mask": "/designer/maverick/kitchen-island.png",
@@ -1062,8 +1077,8 @@ export const designerRegions: Record<string, DesignerPhotos> = {
         },
         "flooring": {
           "mask": "/designer/maverick/kitchen-flooring.png",
-          "ref": 0.5565,
-          "asBuilt": "#8D8D93"
+          "ref": 0.5485,
+          "asBuilt": "#8B8B91"
         }
       }
     },
@@ -1076,13 +1091,13 @@ export const designerRegions: Record<string, DesignerPhotos> = {
       "regions": {
         "walls": {
           "mask": "/designer/maverick/living-walls.png",
-          "ref": 0.6164,
-          "asBuilt": "#A29D95"
+          "ref": 0.6158,
+          "asBuilt": "#A19C96"
         },
         "flooring": {
           "mask": "/designer/maverick/living-flooring.png",
-          "ref": 0.7492,
-          "asBuilt": "#BBBFC9"
+          "ref": 0.7501,
+          "asBuilt": "#BBC0C9"
         }
       }
     },
@@ -1105,13 +1120,13 @@ export const designerRegions: Record<string, DesignerPhotos> = {
         },
         "bathwalls": {
           "mask": "/designer/maverick/bath-bathwalls.png",
-          "ref": 0.4965,
-          "asBuilt": "#778282"
+          "ref": 0.49,
+          "asBuilt": "#758180"
         },
         "flooring": {
           "mask": "/designer/maverick/bath-flooring.png",
-          "ref": 0.6427,
-          "asBuilt": "#A5A2A9"
+          "ref": 0.6393,
+          "asBuilt": "#A4A2A8"
         }
       }
     }
@@ -1125,13 +1140,13 @@ export const designerRegions: Record<string, DesignerPhotos> = {
       "regions": {
         "cabinets": {
           "mask": "/designer/quail-ridge/kitchen-cabinets.png",
-          "ref": 0.7711,
-          "asBuilt": "#C5C4C5"
+          "ref": 0.7717,
+          "asBuilt": "#C5C5C6"
         },
         "counters": {
           "mask": "/designer/quail-ridge/kitchen-counters.png",
-          "ref": 0.6168,
-          "asBuilt": "#A09D9B"
+          "ref": 0.6221,
+          "asBuilt": "#A19E9D"
         },
         "flooring": {
           "mask": "/designer/quail-ridge/kitchen-flooring.png",
@@ -1176,8 +1191,13 @@ export const designerRegions: Record<string, DesignerPhotos> = {
       "regions": {
         "siding": {
           "mask": "/designer/raven/exterior-siding.png",
-          "ref": 0.6984,
-          "asBuilt": "#B5B1B1"
+          "ref": 0.6935,
+          "asBuilt": "#B4AFB0"
+        },
+        "battens": {
+          "mask": "/designer/raven/exterior-battens.png",
+          "ref": 0.7867,
+          "asBuilt": "#C8C9CA"
         }
       }
     },
@@ -1214,8 +1234,8 @@ export const designerRegions: Record<string, DesignerPhotos> = {
       "regions": {
         "walls": {
           "mask": "/designer/raven/living-3-walls.png",
-          "ref": 0.6995,
-          "asBuilt": "#B3B2B2"
+          "ref": 0.695,
+          "asBuilt": "#B2B1B1"
         },
         "flooring": {
           "mask": "/designer/raven/living-3-flooring.png",
@@ -1238,8 +1258,8 @@ export const designerRegions: Record<string, DesignerPhotos> = {
         },
         "vanitytop": {
           "mask": "/designer/raven/bath-vanitytop.png",
-          "ref": 0.8067,
-          "asBuilt": "#D3CCC6"
+          "ref": 0.746,
+          "asBuilt": "#C1BEBA"
         },
         "bathwalls": {
           "mask": "/designer/raven/bath-bathwalls.png",
@@ -1294,8 +1314,8 @@ export const designerRegions: Record<string, DesignerPhotos> = {
         },
         "walls": {
           "mask": "/designer/silverado/kitchen-3-walls.png",
-          "ref": 0.7442,
-          "asBuilt": "#BDBEBC"
+          "ref": 0.6938,
+          "asBuilt": "#B2B1AB"
         }
       }
     },
@@ -1308,8 +1328,8 @@ export const designerRegions: Record<string, DesignerPhotos> = {
       "regions": {
         "walls": {
           "mask": "/designer/silverado/living-2-walls.png",
-          "ref": 0.7038,
-          "asBuilt": "#B1B4B6"
+          "ref": 0.6902,
+          "asBuilt": "#AEB1B1"
         },
         "flooring": {
           "mask": "/designer/silverado/living-2-flooring.png",
@@ -1332,13 +1352,13 @@ export const designerRegions: Record<string, DesignerPhotos> = {
         },
         "vanitytop": {
           "mask": "/designer/silverado/bath-vanitytop.png",
-          "ref": 0.671,
-          "asBuilt": "#A6ACB8"
+          "ref": 0.6471,
+          "asBuilt": "#9EA6B2"
         },
         "bathwalls": {
           "mask": "/designer/silverado/bath-bathwalls.png",
-          "ref": 0.6259,
-          "asBuilt": "#A0A09C"
+          "ref": 0.629,
+          "asBuilt": "#A0A09D"
         },
         "flooring": {
           "mask": "/designer/silverado/bath-flooring.png",
@@ -1358,8 +1378,8 @@ export const designerRegions: Record<string, DesignerPhotos> = {
       "regions": {
         "siding": {
           "mask": "/designer/slugger/exterior-siding.png",
-          "ref": 0.6298,
-          "asBuilt": "#A1A0A1"
+          "ref": 0.6273,
+          "asBuilt": "#A19FA0"
         }
       }
     },
@@ -1371,13 +1391,13 @@ export const designerRegions: Record<string, DesignerPhotos> = {
       "regions": {
         "cabinets": {
           "mask": "/designer/slugger/kitchen-cabinets.png",
-          "ref": 0.7924,
-          "asBuilt": "#CBC9CA"
+          "ref": 0.795,
+          "asBuilt": "#CCCACA"
         },
         "counters": {
           "mask": "/designer/slugger/kitchen-counters.png",
-          "ref": 0.7408,
-          "asBuilt": "#BDBCC2"
+          "ref": 0.7509,
+          "asBuilt": "#BFBFC5"
         },
         "island": {
           "mask": "/designer/slugger/kitchen-island.png",
@@ -1404,8 +1424,8 @@ export const designerRegions: Record<string, DesignerPhotos> = {
       "regions": {
         "walls": {
           "mask": "/designer/slugger/living-walls.png",
-          "ref": 0.6913,
-          "asBuilt": "#AFB1B2"
+          "ref": 0.6909,
+          "asBuilt": "#AEB1B2"
         }
       }
     },
@@ -1417,18 +1437,18 @@ export const designerRegions: Record<string, DesignerPhotos> = {
       "regions": {
         "vanity": {
           "mask": "/designer/slugger/bath-vanity.png",
-          "ref": 0.7244,
-          "asBuilt": "#BCB8B2"
+          "ref": 0.7328,
+          "asBuilt": "#BFBAB2"
         },
         "vanitytop": {
           "mask": "/designer/slugger/bath-vanitytop.png",
-          "ref": 0.7734,
-          "asBuilt": "#C5C6C8"
+          "ref": 0.7496,
+          "asBuilt": "#C0BFC1"
         },
         "bathwalls": {
           "mask": "/designer/slugger/bath-bathwalls.png",
-          "ref": 0.8241,
-          "asBuilt": "#D3D2D0"
+          "ref": 0.8264,
+          "asBuilt": "#D3D3D0"
         }
       }
     }
@@ -1444,13 +1464,13 @@ export const designerRegions: Record<string, DesignerPhotos> = {
       "regions": {
         "siding": {
           "mask": "/designer/titan/exterior-siding.png",
-          "ref": 0.7532,
-          "asBuilt": "#C2C0BD"
+          "ref": 0.7406,
+          "asBuilt": "#BFBCB9"
         },
         "shutters": {
           "mask": "/designer/titan/exterior-shutters.png",
-          "ref": 0.9725,
-          "asBuilt": "#F8F8F8"
+          "ref": 0.9698,
+          "asBuilt": "#F7F8F7"
         }
       }
     },
@@ -1463,13 +1483,13 @@ export const designerRegions: Record<string, DesignerPhotos> = {
       "regions": {
         "cabinets": {
           "mask": "/designer/titan/kitchen-cabinets.png",
-          "ref": 0.7268,
-          "asBuilt": "#BBBAB5"
+          "ref": 0.7323,
+          "asBuilt": "#BCBBB6"
         },
         "counters": {
           "mask": "/designer/titan/kitchen-counters.png",
-          "ref": 0.5323,
-          "asBuilt": "#898885"
+          "ref": 0.2773,
+          "asBuilt": "#484646"
         },
         "island": {
           "mask": "/designer/titan/kitchen-island.png",
@@ -1478,8 +1498,8 @@ export const designerRegions: Record<string, DesignerPhotos> = {
         },
         "flooring": {
           "mask": "/designer/titan/kitchen-flooring.png",
-          "ref": 0.788,
-          "asBuilt": "#CCC7CB"
+          "ref": 0.7759,
+          "asBuilt": "#C9C4C7"
         }
       }
     },
@@ -1492,8 +1512,8 @@ export const designerRegions: Record<string, DesignerPhotos> = {
       "regions": {
         "walls": {
           "mask": "/designer/titan/living-walls.png",
-          "ref": 0.5649,
-          "asBuilt": "#948F8B"
+          "ref": 0.5797,
+          "asBuilt": "#97938F"
         }
       }
     },
@@ -1506,18 +1526,18 @@ export const designerRegions: Record<string, DesignerPhotos> = {
       "regions": {
         "vanity": {
           "mask": "/designer/titan/bath-vanity.png",
-          "ref": 0.6931,
-          "asBuilt": "#B1B1AF"
+          "ref": 0.7305,
+          "asBuilt": "#BABBBB"
         },
         "vanitytop": {
           "mask": "/designer/titan/bath-vanitytop.png",
-          "ref": 0.3203,
-          "asBuilt": "#4F5257"
+          "ref": 0.2717,
+          "asBuilt": "#44454B"
         },
         "bathwalls": {
           "mask": "/designer/titan/bath-bathwalls.png",
-          "ref": 0.565,
-          "asBuilt": "#948E90"
+          "ref": 0.5726,
+          "asBuilt": "#959093"
         }
       }
     }
@@ -1531,18 +1551,18 @@ export const designerRegions: Record<string, DesignerPhotos> = {
       "regions": {
         "cabinets": {
           "mask": "/designer/tremor/kitchen-cabinets.png",
-          "ref": 0.8087,
-          "asBuilt": "#D1CEC8"
+          "ref": 0.8078,
+          "asBuilt": "#D0CEC8"
         },
         "counters": {
           "mask": "/designer/tremor/kitchen-counters.png",
-          "ref": 0.7724,
-          "asBuilt": "#C9C4BC"
+          "ref": 0.7725,
+          "asBuilt": "#C9C5BC"
         },
         "flooring": {
           "mask": "/designer/tremor/kitchen-flooring.png",
-          "ref": 0.6389,
-          "asBuilt": "#B69F84"
+          "ref": 0.6067,
+          "asBuilt": "#AE977B"
         }
       }
     },

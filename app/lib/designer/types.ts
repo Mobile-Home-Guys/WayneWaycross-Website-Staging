@@ -12,6 +12,8 @@
 /** A paintable surface. One name per thing a buyer would choose. */
 export type Material =
   | "siding"
+  /** Vertical board-and-batten siding: a product of its own on Live Oak's boards. */
+  | "battens"
   | "shutters"
   | "cabinets"
   | "island"

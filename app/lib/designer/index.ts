@@ -53,6 +53,14 @@ const SURFACES: {
   list: (series: LiveOakSeries) => string;
 }[] = [
   { material: "siding", title: "Pick the siding color", short: "Siding", help: "The main color of the outside.", section: "Outside", list: () => "siding" },
+  {
+    material: "battens",
+    title: "Pick the board & batten color",
+    short: "Board & batten",
+    help: "The vertical siding panels.",
+    section: "Outside",
+    list: () => "boardAndBatten",
+  },
   { material: "shutters", title: "Pick the shutter color", short: "Shutters", help: "The panels beside the windows.", section: "Outside", list: () => "shutters" },
   { material: "cabinets", title: "Pick the kitchen cabinets", short: "Kitchen cabinets", section: "Inside", list: () => "cabinets" },
   { material: "counters", title: "Pick the kitchen countertop", short: "Countertop", section: "Inside", list: () => "counters" },
@@ -131,7 +139,7 @@ export function groupsFor(slug: string, photos: DesignerPhotos): MaterialGroup[]
         short: s.short,
         help: s.help,
         section: s.section,
-        finishes: [{ id: "as-built", label: "As photographed" }, ...offered],
+        finishes: [{ id: "as-built", label: "As photographed", tag: "Photo only" }, ...offered],
       },
     ];
   });

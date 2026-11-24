@@ -371,7 +371,11 @@ export default function HomeDesigner({
   }, [load, loadTexture, photoKey, photos, groups, picks, original, spot, group]);
 
   const finishOf = (g: MaterialGroup): Finish => g.finishes.find((f) => f.id === picks[g.material]) ?? g.finishes[0];
-  const summary = groups.map((g) => `${g.short}: ${finishOf(g).label}`);
+  /* The photograph's own finish may not be one Wayne Frier offers (the
+     photos come from the plant and other lots), so leaving a surface as
+     photographed is sent as "not chosen", never as a finish. */
+  const chosen = (g: MaterialGroup) => !!finishOf(g).color;
+  const summary = groups.map((g) => `${g.short}: ${chosen(g) ? finishOf(g).label : "not chosen"}`);
 
   async function send(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -517,7 +521,9 @@ export default function HomeDesigner({
                         {f.swatch && <img src={f.swatch} alt="" className="h-full w-full object-cover" />}
                       </span>
                       <span className="flex-1 text-sm text-muted">{g.short}</span>
-                      <span className="text-sm font-medium">{f.label}</span>
+                      <span className={`text-sm font-medium ${chosen(g) ? "" : "text-muted"}`}>
+                        {chosen(g) ? f.label : "Not chosen yet"}
+                      </span>
                     </button>
                   </li>
                 );
