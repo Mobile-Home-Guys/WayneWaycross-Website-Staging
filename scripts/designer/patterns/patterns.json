@@ -1,0 +1,196 @@
+{
+ "_about": "Which décor finishes the designer draws with the board's own sample (wood grain, marble veins, wall-panel weave) instead of one flat colour. Read by scripts/designer/textures.py. crop: the part of the board swatch to use, as fractions (left, top, right, bottom), inside any door frame or edge. scale: photo pixels per swatch pixel. amp: how much of the sample's pattern to keep (1 = all). detail: how much of the photograph's own pattern to keep under it (0 = none, 1 = all). on: the surfaces it is drawn as a pattern on; elsewhere the finish stays a flat colour.",
+ "finishes": {
+  "grizzly-oak": {
+   "on": [
+    "cabinets",
+    "vanity"
+   ],
+   "crop": [
+    0.3,
+    0.42,
+    0.56,
+    0.6
+   ],
+   "scale": 1.0,
+   "amp": 0.8,
+   "detail": 0.35
+  },
+  "havana-oak": {
+   "on": [
+    "flooring"
+   ],
+   "crop": [
+    0.04,
+    0.04,
+    0.96,
+    0.96
+   ],
+   "scale": 0.9,
+   "amp": 0.6,
+   "detail": 0.6
+  },
+  "scrub-hickory": {
+   "on": [
+    "flooring"
+   ],
+   "crop": [
+    0.04,
+    0.04,
+    0.96,
+    0.96
+   ],
+   "scale": 0.9,
+   "amp": 0.6,
+   "detail": 0.6
+  },
+  "sandbar": {
+   "on": [
+    "flooring"
+   ],
+   "crop": [
+    0.04,
+    0.04,
+    0.96,
+    0.96
+   ],
+   "scale": 0.9,
+   "amp": 0.6,
+   "detail": 0.6
+  },
+  "linen-oak": {
+   "on": [
+    "flooring"
+   ],
+   "crop": [
+    0.04,
+    0.04,
+    0.96,
+    0.96
+   ],
+   "scale": 0.9,
+   "amp": 0.6,
+   "detail": 0.6
+  },
+  "lissolla-shadow": {
+   "on": [
+    "counters",
+    "island",
+    "vanitytop"
+   ],
+   "crop": [
+    0.04,
+    0.06,
+    0.96,
+    0.94
+   ],
+   "scale": 1.2,
+   "amp": 1.0,
+   "detail": 0.2
+  },
+  "calcutta-marble": {
+   "on": [
+    "counters",
+    "island",
+    "vanitytop"
+   ],
+   "crop": [
+    0.04,
+    0.06,
+    0.96,
+    0.94
+   ],
+   "scale": 1.2,
+   "amp": 1.0,
+   "detail": 0.2
+  },
+  "limed-pine": {
+   "on": [
+    "island"
+   ],
+   "crop": [
+    0.04,
+    0.06,
+    0.96,
+    0.94
+   ],
+   "scale": 1.2,
+   "amp": 1.0,
+   "detail": 0.2
+  },
+  "cognac-pine": {
+   "on": [
+    "island"
+   ],
+   "crop": [
+    0.04,
+    0.06,
+    0.96,
+    0.94
+   ],
+   "scale": 1.2,
+   "amp": 1.0,
+   "detail": 0.2
+  },
+  "caleb-bronze": {
+   "on": [
+    "walls",
+    "bathwalls"
+   ],
+   "crop": [
+    0.04,
+    0.04,
+    0.96,
+    0.96
+   ],
+   "scale": 0.6,
+   "amp": 0.6,
+   "detail": 0.4
+  },
+  "lineage-fog": {
+   "on": [
+    "walls",
+    "bathwalls"
+   ],
+   "crop": [
+    0.04,
+    0.04,
+    0.96,
+    0.96
+   ],
+   "scale": 0.6,
+   "amp": 0.6,
+   "detail": 0.4
+  },
+  "nirvana-drift": {
+   "on": [
+    "walls",
+    "bathwalls"
+   ],
+   "crop": [
+    0.04,
+    0.04,
+    0.96,
+    0.96
+   ],
+   "scale": 0.6,
+   "amp": 0.6,
+   "detail": 0.4
+  },
+  "tangled-taupe": {
+   "on": [
+    "walls",
+    "bathwalls"
+   ],
+   "crop": [
+    0.04,
+    0.04,
+    0.96,
+    0.96
+   ],
+   "scale": 0.6,
+   "amp": 0.6,
+   "detail": 0.4
+  }
+ }
+}

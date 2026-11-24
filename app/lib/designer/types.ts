@@ -12,6 +12,8 @@
 /** A paintable surface. One name per thing a buyer would choose. */
 export type Material =
   | "siding"
+  /** Vertical board-and-batten siding: a product of its own on Live Oak's boards. */
+  | "battens"
   | "shutters"
   | "cabinets"
   | "island"
@@ -56,6 +58,12 @@ export type Finish = {
   product?: string;
   /** The board's swatch, as a path under `public/`. */
   swatch?: string;
+  /**
+   * Wood, stone and wall panels are drawn with the board's own pattern, not
+   * one flat colour: a seamless tile cut from the swatch, how much of its
+   * pattern to keep, and how much of the photograph's own pattern stays under it.
+   */
+  texture?: { src: string; amp: number; detail: number };
 };
 
 export type MaterialGroup = {
