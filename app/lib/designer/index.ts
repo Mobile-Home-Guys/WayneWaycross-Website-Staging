@@ -1,6 +1,7 @@
 import { DESIGNER_SERIES, type LiveOakSeries } from "./series";
 import decor from "./liveoak-decor.json";
 import { designerRegions } from "./regions.generated";
+import { decorTextures } from "./textures.generated";
 import type { DesignerPhotos, Finish, Material, MaterialGroup } from "./types";
 
 export type { DesignerPhotos, Finish, Material, MaterialGroup } from "./types";
@@ -13,7 +14,10 @@ export type { DesignerPhotos, Finish, Material, MaterialGroup } from "./types";
  * both from Jay's "Current Inventory" email (Nov 20, 2026). The boards were
  * turned into `liveoak-decor.json` (swatches cropped from the boards, colour
  * = the swatch's median) for the Westgate Home Center site, which sells
- * from the same Live Oak plant; the file is shared as is.
+ * from the same Live Oak plant; the file is shared as is. Wood, stone and
+ * wall-panel finishes are also drawn with the board's own pattern
+ * (`textures.generated.ts`, from `scripts/designer/textures.py`), since one
+ * flat colour of Grizzly Oak or Calcutta Marble reads as a different product.
  *
  * Jay's rules: XT and Extreme homes take the XT & Xtreme board, Oak homes
  * the Oak board. Finishes the board marks "XT only" are offered on XT homes
@@ -73,6 +77,21 @@ const SURFACES: {
   },
 ];
 
+/**
+ * The Oak board marks Wooden shutters "Plant 1 and 3" and its wall panels
+ * "Waycross plant": Wayne Frier Waycross's Oak homes come from the Waycross
+ * plant, so a finish only the other plants make is not offered here (asked
+ * Jay to confirm, Nov 24). Plant names are the factory's, not a buyer's, so
+ * they are not shown as a tag either.
+ */
+const otherPlantOnly = (f: BoardFinish) => !!f.tag && /plant/i.test(f.tag) && !/waycross/i.test(f.tag);
+
+/** The board's own pattern for a finish on this surface, if it is drawn as one. */
+function textureFor(id: string, material: Material): Finish["texture"] {
+  const t = decorTextures[id];
+  return t && t.on.includes(material) ? { src: t.src, amp: t.amp, detail: t.detail } : undefined;
+}
+
 /** The photographs and masks for one home, or undefined if it has no designer. */
 export function designerFor(slug: string): DesignerPhotos | undefined {
   return DESIGNER_SERIES[slug] ? designerRegions[slug] : undefined;
@@ -94,14 +113,15 @@ export function groupsFor(slug: string, photos: DesignerPhotos): MaterialGroup[]
   for (const p of Object.values(photos)) for (const m of Object.keys(p.regions) as Material[]) present.add(m);
   return SURFACES.filter((s) => present.has(s.material)).flatMap((s) => {
     const offered: Finish[] = (board[s.list(series)] ?? [])
-      .filter((f) => series === "XT" || !f.xtOnly)
+      .filter((f) => (series === "XT" || !f.xtOnly) && !otherPlantOnly(f))
       .map((f) => ({
         id: f.id,
         label: f.label,
         product: f.product,
-        tag: f.tag,
+        tag: f.tag && /plant/i.test(f.tag) ? undefined : f.tag,
         color: f.color,
         swatch: SWATCHES + f.swatch.replace(/^swatches\//, ""),
+        texture: textureFor(f.id, s.material),
       }));
     if (!offered.length) return [];
     return [

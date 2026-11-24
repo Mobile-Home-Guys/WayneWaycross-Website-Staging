@@ -11,17 +11,22 @@ import { ArrowRight, Check, ChevronDown, SendIcon } from "./Icons";
  * surface lit up on the photo, the board's colours to tap, Next. Then the
  * whole design and a name and number, sent to the sales team with the picks.
  *
- * Each photograph comes with a greyscale mask per surface. A new colour is
+ * Each photograph comes with a greyscale mask per surface. A new finish is
  * relit into the masked pixels from the photograph's own lightness, the
- * ratio of each pixel to the surface's median, so shadows, grain and window
- * light stay the photograph's. The recolour is the Westgate Home Center
- * designer's (same Live Oak plant); the screens are this site's own.
+ * ratio of each pixel to the surface's median, so shadows and window light
+ * stay the photograph's. Paint and siding are one colour; wood, stone and
+ * wall panels are drawn with the Live Oak board's own sample (grain, veins,
+ * weave) in place of the photograph's, so Grizzly Oak looks like Grizzly Oak
+ * and not like orange paint. The recolour started as the Westgate Home
+ * Center designer's (same Live Oak plant); the screens are this site's own.
  * Nothing leaves the page but the picks, and only when the buyer sends them.
  */
 
 type Loaded = {
   base: Uint8ClampedArray<ArrayBuffer>;
   lum: Float32Array;
+  /** The lightness softened a few pixels: the light without the old grain. */
+  soft: Float32Array;
   masks: Partial<Record<Material, Uint8Array>>;
   w: number;
   h: number;
@@ -57,45 +62,129 @@ const clamp01 = (v: number) => (v < 0 ? 0 : v > 1 ? 1 : v);
 
 const PAINTED = new Set<Material>(["cabinets", "island", "vanity", "walls", "bathwalls", "shutters"]);
 
+/** A board sample, ready to lay down: its pixels (0–1), size and mean colour. */
+type Texture = { px: Float32Array; w: number; h: number; mean: [number, number, number]; hi: number };
+
+/** A box blur, run twice: close to a soft gaussian, in two passes per run. */
+function soften(src: Float32Array, w: number, h: number, r: number): Float32Array {
+  let a = src;
+  for (let pass = 0; pass < 2; pass++) {
+    const t = new Float32Array(a.length);
+    for (let y = 0; y < h; y++) {
+      const row = y * w;
+      let acc = 0;
+      for (let x = -r; x <= r; x++) acc += a[row + Math.min(w - 1, Math.max(0, x))];
+      for (let x = 0; x < w; x++) {
+        t[row + x] = acc / (2 * r + 1);
+        acc += a[row + Math.min(w - 1, x + r + 1)] - a[row + Math.max(0, x - r)];
+      }
+    }
+    const o = new Float32Array(a.length);
+    for (let x = 0; x < w; x++) {
+      let acc = 0;
+      for (let y = -r; y <= r; y++) acc += t[Math.min(h - 1, Math.max(0, y)) * w + x];
+      for (let y = 0; y < h; y++) {
+        o[y * w + x] = acc / (2 * r + 1);
+        acc += t[Math.min(h - 1, y + r + 1) * w + x] - t[Math.max(0, y - r) * w + x];
+      }
+    }
+    a = o;
+  }
+  return a;
+}
+
+/** The 95th percentile of a surface's lightness against its median, from a histogram. */
+function brightEnd(shade: Float32Array, mask: Uint8Array, ref: number): number {
+  const bins = new Uint32Array(300);
+  let n = 0;
+  for (let i = 0; i < mask.length; i++) {
+    if (mask[i] < 128) continue;
+    const v = Math.min(299, Math.floor((shade[i] / ref) * 100));
+    bins[v]++;
+    n++;
+  }
+  let seen = 0;
+  for (let v = 0; v < 300; v++) {
+    seen += bins[v];
+    if (seen >= n * 0.95) return (v + 0.5) / 100;
+  }
+  return 1;
+}
+
 /**
  * The home with a design's finishes laid into one photograph, as RGBA. Each
- * new colour is relit from the photograph: the pixel's lightness against
- * the surface's median carries the shadow, grain and window light. A dark
- * finish multiplied down loses that detail, so it is added back instead;
- * the two blend by the finish's own lightness so there is no seam.
+ * new finish is relit from the photograph: the pixel's lightness against
+ * the surface's median carries the shadow and window light. A finish with a
+ * board pattern takes the pattern from the board and only the light from the
+ * photograph (its old grain mostly softened away); a flat finish keeps the
+ * photograph's texture. The light is held back where it would push a pale
+ * finish past white, so White reads white and not grey. A dark finish
+ * multiplied down loses its detail, so it is added back instead; the two
+ * blend by the finish's own lightness so there is no seam.
  */
-function paint(P: Loaded, photo: DesignerPhotos[string], groups: MaterialGroup[], picks: Picks): Uint8ClampedArray<ArrayBuffer> {
+function paint(
+  P: Loaded,
+  photo: DesignerPhotos[string],
+  groups: MaterialGroup[],
+  picks: Picks,
+  textures: Record<string, Texture>,
+): Uint8ClampedArray<ArrayBuffer> {
   const b = P.base;
-  const L = P.lum;
   const o = new Uint8ClampedArray(b);
   for (const g of groups) {
     const finish = g.finishes.find((f) => f.id === picks[g.material]);
     const mask = P.masks[g.material];
     const region = photo.regions[g.material];
     if (!finish?.color || !mask || !region) continue;
+    const tex = finish.texture ? textures[finish.texture.src] : undefined;
+    /* The finish's colour is the board's (its swatch's median); a pattern
+       only varies around it, so the overall colour stays the board's. */
     const t = hexToRgb(finish.color);
     const ref = region.ref;
     const tl = 0.299 * t[0] + 0.587 * t[1] + 0.114 * t[2];
     const w = tl < 0.18 ? 1 : tl > 0.42 ? 0 : (0.42 - tl) / 0.24;
+    /* With a board pattern the photograph's own grain mostly goes: keep the
+       light (the softened lightness) and only `detail` of the old pattern. */
+    const keep = tex ? finish.texture!.detail : 1;
+    const shade = keep === 1 ? P.lum : new Float32Array(P.lum.length);
+    if (keep !== 1) for (let i = 0; i < shade.length; i++) shade[i] = P.soft[i] + (P.lum[i] - P.soft[i]) * keep;
     /* A near-black surface carries mostly sensor noise in its lightness;
        turned light, that noise would read as speckle, so its shading is
        kept at reduced strength. */
     let k = ref >= 0.35 ? 1 : Math.max(0.3, ref / 0.35);
     /* Paint covers grain: a painted surface turned lighter than it was keeps
-       the light and shadow but loses most of the old wood's figure. Floors
-       and counters keep their pattern; that is the material. */
-    if (PAINTED.has(g.material) && tl > ref) k *= Math.max(0.35, Math.sqrt(ref / tl));
+       the light and shadow but loses most of the old wood's figure. */
+    if (!tex && PAINTED.has(g.material) && tl > ref) k *= Math.max(0.35, Math.sqrt(ref / tl));
+    /* The board shows each finish in even light: keep the room's light a
+       little softer than the photograph's, and never so strong that the
+       sunlit part of a pale finish clips to a different, greyer colour. */
+    k *= 0.85;
+    const top = Math.max(t[0], t[1], t[2]) * (tex ? tex.hi / Math.max(...tex.mean) : 1);
+    const q95 = brightEnd(shade, mask, ref);
+    if (q95 > 1 && top * (1 + (q95 - 1) * k) > 0.98) k = Math.max(0.25, Math.min(k, (0.98 / top - 1) / (q95 - 1)));
+    const amp = tex ? finish.texture!.amp : 0;
     for (let i = 0, j = 0; i < mask.length; i++, j += 4) {
       const a = mask[i];
       if (!a) continue;
       const f = a / 255;
-      const l = L[i];
+      const l = shade[i];
       let q = 1 + (l / ref - 1) * k;
       q = q < 0.3 ? 0.3 : q > 1.5 ? 1.5 : q;
       const d = (l - ref) * 0.85;
-      const r = t[0] * q * (1 - w) + (t[0] + d) * w;
-      const gg = t[1] * q * (1 - w) + (t[1] + d) * w;
-      const bb = t[2] * q * (1 - w) + (t[2] + d) * w;
+      let c0 = t[0],
+        c1 = t[1],
+        c2 = t[2];
+      if (tex) {
+        const x = i % P.w;
+        const y = (i - x) / P.w;
+        const ti = ((y % tex.h) * tex.w + (x % tex.w)) * 3;
+        c0 *= 1 + (tex.px[ti] / tex.mean[0] - 1) * amp;
+        c1 *= 1 + (tex.px[ti + 1] / tex.mean[1] - 1) * amp;
+        c2 *= 1 + (tex.px[ti + 2] / tex.mean[2] - 1) * amp;
+      }
+      const r = c0 * q * (1 - w) + (c0 + d) * w;
+      const gg = c1 * q * (1 - w) + (c1 + d) * w;
+      const bb = c2 * q * (1 - w) + (c2 + d) * w;
       o[j] = b[j] * (1 - f) + clamp01(r) * 255 * f;
       o[j + 1] = b[j + 1] * (1 - f) + clamp01(gg) * 255 * f;
       o[j + 2] = b[j + 2] * (1 - f) + clamp01(bb) * 255 * f;
@@ -152,6 +241,7 @@ export default function HomeDesigner({
 
   const canvas = useRef<HTMLCanvasElement>(null);
   const cache = useRef<Record<string, Promise<Loaded>>>({});
+  const texCache = useRef<Record<string, Promise<Texture>>>({});
   const [ready, setReady] = useState<string | null>(null);
 
   /* Picks saved on this device, so a reload keeps the design. */
@@ -191,6 +281,7 @@ export default function HomeDesigner({
           const lum = new Float32Array(n);
           for (let i = 0, j = 0; i < n; i++, j += 4)
             lum[i] = (0.299 * base[j] + 0.587 * base[j + 1] + 0.114 * base[j + 2]) / 255;
+          const soft = soften(lum, img.naturalWidth, img.naturalHeight, 3);
           const masks: Loaded["masks"] = {};
           await Promise.all(
             (Object.entries(p.regions) as [Material, { mask: string }][]).map(async ([m, r]) => {
@@ -200,7 +291,7 @@ export default function HomeDesigner({
               masks[m] = a;
             }),
           );
-          return { base, lum, masks, w: img.naturalWidth, h: img.naturalHeight };
+          return { base, lum, soft, masks, w: img.naturalWidth, h: img.naturalHeight };
         })();
         cache.current[key].catch(() => delete cache.current[key]);
       }
@@ -208,6 +299,30 @@ export default function HomeDesigner({
     },
     [photos],
   );
+
+  /* A board pattern, read once into numbers the paint loop can sample. */
+  const loadTexture = useCallback((src: string) => {
+    if (!texCache.current[src]) {
+      texCache.current[src] = loadImage(src).then((img) => {
+        const d = readPixels(img);
+        const n = img.naturalWidth * img.naturalHeight;
+        const px = new Float32Array(n * 3);
+        const mean: [number, number, number] = [0, 0, 0];
+        const tops: number[] = [];
+        for (let i = 0, j = 0; i < n; i++, j += 4) {
+          for (let c = 0; c < 3; c++) {
+            px[i * 3 + c] = d[j + c] / 255;
+            mean[c] += d[j + c] / 255 / n;
+          }
+          tops.push(Math.max(px[i * 3], px[i * 3 + 1], px[i * 3 + 2]));
+        }
+        tops.sort((x, y) => x - y);
+        return { px, w: img.naturalWidth, h: img.naturalHeight, mean, hi: tops[Math.floor(n * 0.9)] };
+      });
+      texCache.current[src].catch(() => delete texCache.current[src]);
+    }
+    return texCache.current[src];
+  }, []);
 
   /* Warm the other photographs once the first is on screen. */
   useEffect(() => {
@@ -228,13 +343,22 @@ export default function HomeDesigner({
   /* Draw. */
   useEffect(() => {
     let live = true;
-    load(photoKey)
-      .then((P) => {
+    const srcs = [
+      ...new Set(
+        groups.flatMap((g) => {
+          const t = g.finishes.find((f) => f.id === picks[g.material])?.texture;
+          return t ? [t.src] : [];
+        }),
+      ),
+    ];
+    Promise.all([load(photoKey), Promise.all(srcs.map((s) => loadTexture(s)))])
+      .then(([P, loaded]) => {
         const c = canvas.current;
         if (!live || !c) return;
         if (c.width !== P.w) c.width = P.w;
         if (c.height !== P.h) c.height = P.h;
-        const out = original ? new Uint8ClampedArray(P.base) : paint(P, photos[photoKey], groups, picks);
+        const textures = Object.fromEntries(srcs.map((s, i) => [s, loaded[i]]));
+        const out = original ? new Uint8ClampedArray(P.base) : paint(P, photos[photoKey], groups, picks, textures);
         const m = group && P.masks[group.material];
         if (spot && m) spotlight(out, m, 0.55);
         c.getContext("2d")!.putImageData(new ImageData(out, P.w, P.h), 0, 0);
@@ -244,7 +368,7 @@ export default function HomeDesigner({
     return () => {
       live = false;
     };
-  }, [load, photoKey, photos, groups, picks, original, spot, group]);
+  }, [load, loadTexture, photoKey, photos, groups, picks, original, spot, group]);
 
   const finishOf = (g: MaterialGroup): Finish => g.finishes.find((f) => f.id === picks[g.material]) ?? g.finishes[0];
   const summary = groups.map((g) => `${g.short}: ${finishOf(g).label}`);
